@@ -1,0 +1,40 @@
+{
+  "checkedOn": "2026-09-06",
+  "platform": "Linux",
+  "node": "v24.14.1",
+  "tests": {
+    "tests": 40,
+    "pass": 40,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "static": {
+    "javascript": 7,
+    "json": 5,
+    "skills": 6,
+    "prompts": 7,
+    "policyBytes": 2407,
+    "failures": []
+  },
+  "bashSyntax": "PASS (three .sh launchers)",
+  "alwaysLoadedPolicyBytes": {
+    "original": 2815,
+    "v2": 2407,
+    "note": "UTF-8 bytes, not model tokens or measured API cost"
+  },
+  "samePayloadCheck": {
+    "payloadCharacters": 200000,
+    "v2SummaryBytes": 1055,
+    "note": "Original run recorded separately in original-regressions.json"
+  },
+  "notExecuted": [
+    "Pi CLI/provider authentication/live model routing",
+    "pi-agenticoding runtime loading, readonly transitions and handoff",
+    "Native Windows/PowerShell and macOS execution",
+    "CI matrix on GitHub",
+    "Real-world task cost/quality A-B benchmark",
+    "Execution of external Matt Pocock skills"
+  ]
+}

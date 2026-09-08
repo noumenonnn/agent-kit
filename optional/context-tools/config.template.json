@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "guard": {
+    "mode": "warn",
+    "maxReadBytes": 16384,
+    "maxScanBytes": 2097152
+  },
+  "worker": {
+    "maxFiles": 8,
+    "maxInputBytes": 96000,
+    "maxFileBytes": 2097152,
+    "maxOutputTokens": 1500,
+    "maxAnswerBytes": 7000,
+    "timeoutMs": 60000,
+    "maxCallsPerSession": 8
+  }
+}

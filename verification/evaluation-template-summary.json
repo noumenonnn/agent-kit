@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "groups": [
+    {
+      "variant": "full-read",
+      "attempts": 1,
+      "tasks": 1,
+      "acceptedTasks": 0,
+      "unjudgedTasks": 1,
+      "unknownCostAttempts": 1,
+      "taskIds": [
+        "same-real-task-001"
+      ],
+      "costBasis": [
+        "unknown"
+      ],
+      "totalCostUsd": null,
+      "knownSubtotalUsd": 0,
+      "costPerAcceptedTaskUsd": null,
+      "acceptanceRate": null,
+      "medianAttemptDurationMs": null,
+      "unknownDurationAttempts": 1
+    },
+    {
+      "variant": "targeted-read",
+      "attempts": 1,
+      "tasks": 1,
+      "acceptedTasks": 0,
+      "unjudgedTasks": 1,
+      "unknownCostAttempts": 1,
+      "taskIds": [
+        "same-real-task-001"
+      ],
+      "costBasis": [
+        "unknown"
+      ],
+      "totalCostUsd": null,
+      "knownSubtotalUsd": 0,
+      "costPerAcceptedTaskUsd": null,
+      "acceptanceRate": null,
+      "medianAttemptDurationMs": null,
+      "unknownDurationAttempts": 1
+    },
+    {
+      "variant": "delegated",
+      "attempts": 1,
+      "tasks": 1,
+      "acceptedTasks": 0,
+      "unjudgedTasks": 1,
+      "unknownCostAttempts": 1,
+      "taskIds": [
+        "same-real-task-001"
+      ],
+      "costBasis": [
+        "unknown"
+      ],
+      "totalCostUsd": null,
+      "knownSubtotalUsd": 0,
+      "costPerAcceptedTaskUsd": null,
+      "acceptanceRate": null,
+      "medianAttemptDurationMs": null,
+      "unknownDurationAttempts": 1
+    }
+  ],
+  "matchedTaskSets": true,
+  "warnings": [
+    "Unknown cost is not zero; totals and per-accepted-task costs are incomplete.",
+    "Quality decisions are incomplete. No savings claim is justified.",
+    "Pi-attempt-total must be an isolated attempt total or an end-minus-start delta, not repeated cumulative footer readings.",
+    "Catalog costs are estimates, not invoices. Failures/retries are included. No automatic winner or token-savings claim is produced."
+  ]
+}

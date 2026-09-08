@@ -1,0 +1,190 @@
+[
+  {
+    "path": ".gitattributes",
+    "status": "added"
+  },
+  {
+    "path": ".github/dependabot.yml",
+    "status": "added"
+  },
+  {
+    "path": ".github/workflows/ci.yml",
+    "status": "added"
+  },
+  {
+    "path": ".gitignore",
+    "status": "added"
+  },
+  {
+    "path": "AUDIT-RU.md",
+    "status": "added"
+  },
+  {
+    "path": "EVALUATION.md",
+    "status": "added"
+  },
+  {
+    "path": "MATT-POCOCK-INTEGRATION.md",
+    "status": "modified"
+  },
+  {
+    "path": "MIGRATION-RU.md",
+    "status": "added"
+  },
+  {
+    "path": "MODEL-ROUTING.md",
+    "status": "modified"
+  },
+  {
+    "path": "README.md",
+    "status": "modified"
+  },
+  {
+    "path": "SOURCES.md",
+    "status": "modified"
+  },
+  {
+    "path": "TOKEN-BUDGET-CHECKLIST.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/AGENTS.fragment.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/settings.template.json",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/compact-tool-output/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/context-efficiency/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/dependency-change-safety/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/deterministic-bulk-work/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/repository-exploration/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "global/skills/verification-evidence/SKILL.md",
+    "status": "modified"
+  },
+  {
+    "path": "package.json",
+    "status": "added"
+  },
+  {
+    "path": "profiles/agenticoding/settings.template.json",
+    "status": "added"
+  },
+  {
+    "path": "project-template/.agent/references/safety.md",
+    "status": "added"
+  },
+  {
+    "path": "project-template/.agent/scripts/compact-run.mjs",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.agent/scripts/diff-summary.mjs",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.agent/scripts/lib/runtime.mjs",
+    "status": "added"
+  },
+  {
+    "path": "project-template/.gitignore.pi-agent-snippet",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-architecture.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-build.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-discover.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-review.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-task.md",
+    "status": "added"
+  },
+  {
+    "path": "project-template/.pi/prompts/efficient-verify.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/prompts/portable-handoff.md",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/.pi/settings.json",
+    "status": "modified"
+  },
+  {
+    "path": "project-template/AGENTS.md",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/check-kit.mjs",
+    "status": "added"
+  },
+  {
+    "path": "scripts/doctor.mjs",
+    "status": "added"
+  },
+  {
+    "path": "scripts/init-project.ps1",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/init-project.sh",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/install-global.ps1",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/install-global.sh",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/install-matt-pocock.ps1",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/install-matt-pocock.sh",
+    "status": "modified"
+  },
+  {
+    "path": "scripts/kit.mjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/starter.test.mjs",
+    "status": "added"
+  },
+  {
+    "path": "versions.json",
+    "status": "added"
+  }
+]

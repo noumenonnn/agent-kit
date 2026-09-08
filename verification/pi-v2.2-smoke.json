@@ -1,0 +1,10 @@
+{
+  "piVersion": "0.85.1",
+  "modelCalls": 0,
+  "fullTuiVerified": false,
+  "results": [
+    { "scenario": "project", "skills": 3, "prompts": 7, "extensions": 0, "status": null },
+    { "scenario": "context-tools", "skills": 3, "prompts": 7, "extensions": 1, "status": "warn; worker OFF (captured UI callback)" },
+    { "scenario": "package", "skills": 9, "prompts": 7, "extensions": 0, "status": null }
+  ]
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "check": "global installer preserves custom skill files",
+    "exit_code": 0,
+    "preserved": false
+  },
+  {
+    "check": "fallback compaction without extension",
+    "compaction_enabled": false
+  },
+  {
+    "check": "untracked file included in changed file total",
+    "reports_zero": true,
+    "actual_untracked": 1
+  },
+  {
+    "check": "long line bounded before model context",
+    "summary_bytes": 65672,
+    "input_payload_bytes": 200000,
+    "exit_code": 0
+  },
+  {
+    "check": "temporary logs actually gitignored after init",
+    "ignored": false
+  }
+]

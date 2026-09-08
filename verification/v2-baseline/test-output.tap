@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: dry-run creates no files or directories
+ok 1 - dry-run creates no files or directories
+  ---
+  duration_ms: 73.081114
+  type: 'test'
+  ...
+# Subtest: relative targets and spaces resolve before copying, with flags in either order
+ok 2 - relative targets and spaces resolve before copying, with flags in either order
+  ---
+  duration_ms: 66.331304
+  type: 'test'
+  ...
+# Subtest: existing project files are preserved; .gitignore is merged and effective
+ok 3 - existing project files are preserved; .gitignore is merged and effective
+  ---
+  duration_ms: 102.603054
+  type: 'test'
+  ...
+# Subtest: repeated init is idempotent including ignore rules and receipts
+ok 4 - repeated init is idempotent including ignore rules and receipts
+  ---
+  duration_ms: 118.316556
+  type: 'test'
+  ...
+# Subtest: force creates byte-exact backups and reversible changes, retaining unrelated files
+ok 5 - force creates byte-exact backups and reversible changes, retaining unrelated files
+  ---
+  duration_ms: 136.155
+  type: 'test'
+  ...
+# Subtest: restore refuses later user edits without partially reverting other files
+ok 6 - restore refuses later user edits without partially reverting other files
+  ---
+  duration_ms: 119.069508
+  type: 'test'
+  ...
+# Subtest: global core defaults keep compaction and respect PI_CODING_AGENT_DIR
+ok 7 - global core defaults keep compaction and respect PI_CODING_AGENT_DIR
+  ---
+  duration_ms: 50.011155
+  type: 'test'
+  ...
+# Subtest: global updates never delete custom skill extras, even with force
+ok 8 - global updates never delete custom skill extras, even with force
+  ---
+  duration_ms: 96.258744
+  type: 'test'
+  ...
+# Subtest: existing settings stay byte-identical until explicit deep merge with backup
+ok 9 - existing settings stay byte-identical until explicit deep merge with backup
+  ---
+  duration_ms: 97.360235
+  type: 'test'
+  ...
+# Subtest: AGENTS managed block updates without changing surrounding user instructions
+ok 10 - AGENTS managed block updates without changing surrounding user instructions
+  ---
+  duration_ms: 100.33495
+  type: 'test'
+  ...
+# Subtest: malformed managed markers fail before any installation changes
+ok 11 - malformed managed markers fail before any installation changes
+  ---
+  duration_ms: 42.267311
+  type: 'test'
+  ...
+# Subtest: agenticoding compaction change requires explicit acknowledgement and pin
+ok 12 - agenticoding compaction change requires explicit acknowledgement and pin
+  ---
+  duration_ms: 90.904302
+  type: 'test'
+  ...
+# Subtest: a disabled extension entry does not authorize disabling auto-compaction
+ok 13 - a disabled extension entry does not authorize disabling auto-compaction
+  ---
+  duration_ms: 41.31017
+  type: 'test'
+  ...
+# Subtest: unknown flags and targets inside the kit are rejected
+ok 14 - unknown flags and targets inside the kit are rejected
+  ---
+  duration_ms: 81.43529
+  type: 'test'
+  ...
+# Subtest: installer refuses a symlinked target subtree before writing outside it
+ok 15 - installer refuses a symlinked target subtree before writing outside it
+  ---
+  duration_ms: 50.321864
+  type: 'test'
+  ...
+# Subtest: installer refuses an existing installation lock
+ok 16 - installer refuses an existing installation lock
+  ---
+  duration_ms: 59.564466
+  type: 'test'
+  ...
+# Subtest: Matt installer requires full immutable commit, not latest
+ok 17 - Matt installer requires full immutable commit, not latest
+  ---
+  duration_ms: 43.276836
+  type: 'test'
+  ...
+# Subtest: Matt installer copies committed blobs, preserves license, never executes scripts
+ok 18 - Matt installer copies committed blobs, preserves license, never executes scripts
+  ---
+  duration_ms: 130.205474
+  type: 'test'
+  ...
+# Subtest: compact runner returns real exit code and preserves stderr context
+ok 19 - compact runner returns real exit code and preserves stderr context
+  ---
+  duration_ms: 83.280127
+  type: 'test'
+  ...
+# Subtest: exit zero is labelled process OK, not fabricated test PASS
+ok 20 - exit zero is labelled process OK, not fabricated test PASS
+  ---
+  duration_ms: 93.54446
+  type: 'test'
+  ...
+# Subtest: long unbroken output is byte-bounded; log cap is explicit and result is accurate
+ok 21 - long unbroken output is byte-bounded; log cap is explicit and result is accurate
+  ---
+  duration_ms: 88.347625
+  type: 'test'
+  ...
+# Subtest: runner writes complete below-cap logs without truncation from process.exit
+ok 22 - runner writes complete below-cap logs without truncation from process.exit
+  ---
+  duration_ms: 90.74013
+  type: 'test'
+  ...
+# Subtest: runner supports split multibyte UTF-8 and strips terminal control sequences
+ok 23 - runner supports split multibyte UTF-8 and strips terminal control sequences
+  ---
+  duration_ms: 86.17622
+  type: 'test'
+  ...
+# Subtest: runner never echoes command arguments and never adds an implicit shell
+ok 24 - runner never echoes command arguments and never adds an implicit shell
+  ---
+  duration_ms: 74.789922
+  type: 'test'
+  ...
+# Subtest: missing executable returns 127 and records spawn error
+ok 25 - missing executable returns 127 and records spawn error
+  ---
+  duration_ms: 52.49875
+  type: 'test'
+  ...
+# Subtest: timeouts terminate finite-check process and return 124
+ok 26 - timeouts terminate finite-check process and return 124
+  ---
+  duration_ms: 715.288186
+  type: 'test'
+  ...
+# Subtest: SIGINT returns 130 instead of an arbitrary failure
+ok 27 - SIGINT returns 130 instead of an arbitrary failure
+  ---
+  duration_ms: 631.070242
+  type: 'test'
+  ...
+# Subtest: log path refuses symlink escape
+ok 28 - log path refuses symlink escape
+  ---
+  duration_ms: 42.745229
+  type: 'test'
+  ...
+# Subtest: invalid runner options fail before creating logs
+ok 29 - invalid runner options fail before creating logs
+  ---
+  duration_ms: 37.130186
+  type: 'test'
+  ...
+# Subtest: porcelain parser handles rename order, spaces, Unicode and embedded newlines
+ok 30 - porcelain parser handles rename order, spaces, Unicode and embedded newlines
+  ---
+  duration_ms: 0.319094
+  type: 'test'
+  ...
+# Subtest: diff includes staged, unstaged and untracked paths; --no-log writes nothing
+ok 31 - diff includes staged, unstaged and untracked paths; --no-log writes nothing
+  ---
+  duration_ms: 63.848128
+  type: 'test'
+  ...
+# Subtest: diff default report retains all paths while terminal file list is bounded
+ok 32 - diff default report retains all paths while terminal file list is bounded
+  ---
+  duration_ms: 59.382813
+  type: 'test'
+  ...
+# Subtest: diff --base includes committed branch changes relative to merge base
+ok 33 - diff --base includes committed branch changes relative to merge base
+  ---
+  duration_ms: 75.510858
+  type: 'test'
+  ...
+# Subtest: diff handles staged rename and does not run an external diff driver
+ok 34 - diff handles staged rename and does not run an external diff driver
+  ---
+  duration_ms: 65.788572
+  type: 'test'
+  ...
+# Subtest: diff outside Git fails and does not create a misleading report
+ok 35 - diff outside Git fails and does not create a misleading report
+  ---
+  duration_ms: 44.599298
+  type: 'test'
+  ...
+# Subtest: platform launcher delegates to the same safe Node installer
+ok 36 - platform launcher delegates to the same safe Node installer
+  ---
+  duration_ms: 55.263407
+  type: 'test'
+  ...
+# Subtest: diff script works when its own installation path contains spaces
+ok 37 - diff script works when its own installation path contains spaces
+  ---
+  duration_ms: 54.596433
+  type: 'test'
+  ...
+# Subtest: POSIX timeout also stops descendants that remain in the process group
+ok 38 - POSIX timeout also stops descendants that remain in the process group
+  ---
+  duration_ms: 1648.010956
+  type: 'test'
+  ...
+# Subtest: doctor checks local configuration without claiming runtime integration
+ok 39 - doctor checks local configuration without claiming runtime integration
+  ---
+  duration_ms: 154.022249
+  type: 'test'
+  ...
+# Subtest: diff identifies unresolved merge conflicts and returns nonzero
+ok 40 - diff identifies unresolved merge conflicts and returns nonzero
+  ---
+  duration_ms: 84.490538
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5888.156365

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "kitVersion": "2.1.0",
+  "reviewedOn": "2026-09-08",
+  "environment": {
+    "platform": "Linux",
+    "node": "v24.14.1",
+    "git": "git version 2.49.0"
+  },
+  "testCommand": "node --test --test-reporter=tap",
+  "tests": 85,
+  "pass": 85,
+  "fail": 0,
+  "skipped": 0,
+  "cancelled": 0,
+  "baselineTestsRetained": 40,
+  "additionalTests": 45,
+  "coreFilesByteIdenticalToV2": 27,
+  "realModelCalls": 0,
+  "limitations": [
+    "Pure JS + mocked Pi adapter tests; no live Pi/provider loading or full Pi typecheck",
+    "Native Windows/macOS and Node 22 were not run in this environment",
+    "No Spotify hook/script/eval source audit or reproduced cost benchmark",
+    "CI matrix configured, not executed here"
+  ]
+}

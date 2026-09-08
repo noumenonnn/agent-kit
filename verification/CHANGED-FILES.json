@@ -1,0 +1,191 @@
+{
+  "baseline": "kit-v2.0.0",
+  "changes": [
+    {
+      "path": "AUDIT-RU.md",
+      "change": "modified",
+      "beforeSha256": "69eafbeb9ba0d7857063525c6526c4a9d3421be8c950754c7e2d896a5f322e05",
+      "afterSha256": "2bab3db15c103bf22b27734d43647c8fe80acaf7f6d407f23ea341620af65a9a"
+    },
+    {
+      "path": "AUDIT-V2-RU.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "69eafbeb9ba0d7857063525c6526c4a9d3421be8c950754c7e2d896a5f322e05"
+    },
+    {
+      "path": "CONTEXT-TOOLS-RU.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "3df152e0fc77337f6d76c224636be8428c44124350047d2d55e037109ecbc5af"
+    },
+    {
+      "path": "EVALUATION.md",
+      "change": "modified",
+      "beforeSha256": "c86d0960b746fbc59f96e4668df4c5fe80bb1908f9c7cfef26121813a0114f25",
+      "afterSha256": "e2efc3a3c41d165c381a4c14cc04ec49918de49b833c009fe7805025f4c99515"
+    },
+    {
+      "path": "MIGRATION-RU.md",
+      "change": "modified",
+      "beforeSha256": "4312f2a37320807fe51f3b18049299795b7e2e0387ab1f6331b2c2887062cc6d",
+      "afterSha256": "7a33213f2e17f4b72d46f5580b99db795bf0bc7793ce59524e30cc324fdb9c7b"
+    },
+    {
+      "path": "MODEL-ROUTING.md",
+      "change": "modified",
+      "beforeSha256": "59ee3cbcd3d0e5ec667ecd3b58db656fb973bef96ffa8e1a78a010489da97391",
+      "afterSha256": "d568f35636fa5351017ca868fbd39a12e13e1c01553a9eb3bfe2417c7ef93859"
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "beforeSha256": "1af66ae15fe020748c4875c2c721f08c8b63197f1b442bfa1afbb73735982f48",
+      "afterSha256": "993b939bb7a2cd1ca0ef2a0b5b616c7cdda6aca9617dc0dcd62fc5e47cf0fe1c"
+    },
+    {
+      "path": "SOURCES.md",
+      "change": "modified",
+      "beforeSha256": "7fc434179a17632543c5fefb08d68e2a73e78e791edd8a5ad5318eab34bde29e",
+      "afterSha256": "12837aa0268398e6e0035f53f0cced3b1c0aeed7a0a5d09d3b4000bce8959131"
+    },
+    {
+      "path": "optional/context-tools/config.template.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "f966f9777b8b77136ea49530d70916108d8504264755f411e91b4ebe12bf79d0"
+    },
+    {
+      "path": "optional/context-tools/evaluation.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "3e5bcbd309f293071c20ca4143e4aefe13c93802f19530e40216fd2c388315d3"
+    },
+    {
+      "path": "optional/context-tools/evaluation.template.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "6bded697905c593d554b5932c2b36e807a2cb225e0c3d5d0d9b20f8e5cd14287"
+    },
+    {
+      "path": "optional/context-tools/extension/index.ts",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "38e828abbf5078dba02799a2537fe85de38ae3fc3e6e2cb65fa448fba8054f36"
+    },
+    {
+      "path": "optional/context-tools/extension/lib/adapter.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "6f765d9d4fb3a274ef04b9d749ea95c0835f43cdec5403b2826dfdf5f9d55d01"
+    },
+    {
+      "path": "optional/context-tools/extension/lib/core.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "9d0ae302380e2882b3325a65895f84874db5eae6eb2901270226075e66e829a4"
+    },
+    {
+      "path": "optional/context-tools/extension/lib/worker.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "31caad92e03416f9a134c4ad087e9d1481ebd916f51668815cbf0cc077f4aa95"
+    },
+    {
+      "path": "package.json",
+      "change": "modified",
+      "beforeSha256": "2d9010c116c007a4f22a95ea91fb68d732cb93c6ca3c59c110c22f62e0f82aea",
+      "afterSha256": "8a6809ee6d1602c36b0f4f1e78e25df5f20851ebfdec2403bfcaa5fd8c33adaa"
+    },
+    {
+      "path": "scripts/check-kit.mjs",
+      "change": "modified",
+      "beforeSha256": "c2dcfe5ee14667db132645496e8711952138392567d6b78330ff347bebd507b2",
+      "afterSha256": "82d49e58600306eda0602f1412bfe245d181927129f116c97072319e1a3cd43c"
+    },
+    {
+      "path": "scripts/kit.mjs",
+      "change": "modified",
+      "beforeSha256": "0fe4818ac48a26d9a5b8661eb3081aca0c762a91ea6617b753d818a8b25cdb7b",
+      "afterSha256": "ef5ecce2a327a9507b93bd13122ef531c1578cbf20c1e9019b6504639171ade4"
+    },
+    {
+      "path": "scripts/summarize-context-evals.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "0a7f08c052e4c4a4be9e324a3c904b0d7d9c32ecb3f3e9b53d3d10c3661671a9"
+    },
+    {
+      "path": "tests/context-tools.test.mjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "d74d03ba62c4e1c31365df6afbf0eda9d7aedff175ed38ee087c319b579f43be"
+    },
+    {
+      "path": "verification/RESULTS.json",
+      "change": "modified",
+      "beforeSha256": "d8ad148cd78ba24e4804b7dc33a3d995beb86661b3b90a22cf096b6c991e7a6d",
+      "afterSha256": "e8407e0d20f0b728b6de98e4d60b235ef677e96d9b9feb66e9c98c310ebc6424"
+    },
+    {
+      "path": "verification/evaluation-template-summary.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "0d8ad0df2d244fa66a13abfea7fa9e80a6c461f36e07cf98383916ec0f1bcd69"
+    },
+    {
+      "path": "verification/original-regressions.json",
+      "change": "removed",
+      "beforeSha256": "86224bf52e118b7d60857886319fcb2e27dbf4fbce22f4efc3a89a76e1271a3e",
+      "afterSha256": null
+    },
+    {
+      "path": "verification/static-checks.json",
+      "change": "modified",
+      "beforeSha256": "58c7db84ef0f1a40b56a7406984e1a0f4b42e53bff4249d7e806f4add6d95ddd",
+      "afterSha256": "8e6df634e19c0c239534b3ca180a01643e0504d1296c51669e0f54bb4c4134ea"
+    },
+    {
+      "path": "verification/test-output.tap",
+      "change": "modified",
+      "beforeSha256": "1d4787f4a7be2bc0953e12b3e2e53ca18b38e5b9aef0b4755dcd7599e2d889b4",
+      "afterSha256": "fd4481b2881dbc597235e89000cc83c2bee2b22c97bae22697c2e85da034bc5c"
+    },
+    {
+      "path": "verification/v2-baseline/CHANGED-FILES.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "78986a097aa61bfeda9983781b4e4a5ba70efd70b5887428bc47f3649410da53"
+    },
+    {
+      "path": "verification/v2-baseline/RESULTS.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "d8ad148cd78ba24e4804b7dc33a3d995beb86661b3b90a22cf096b6c991e7a6d"
+    },
+    {
+      "path": "verification/v2-baseline/original-regressions.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "86224bf52e118b7d60857886319fcb2e27dbf4fbce22f4efc3a89a76e1271a3e"
+    },
+    {
+      "path": "verification/v2-baseline/static-checks.json",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "58c7db84ef0f1a40b56a7406984e1a0f4b42e53bff4249d7e806f4add6d95ddd"
+    },
+    {
+      "path": "verification/v2-baseline/test-output.tap",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "1d4787f4a7be2bc0953e12b3e2e53ca18b38e5b9aef0b4755dcd7599e2d889b4"
+    },
+    {
+      "path": "versions.json",
+      "change": "modified",
+      "beforeSha256": "8b2881aa0e8788a99b8eb4efb6df39e2a6a1dd421851efedd97c614117fc1012",
+      "afterSha256": "86de631aad3d2d51ac8824a4e0a857057d4048fe3edee36eb8949cccc00e6565"
+    }
+  ]
+}

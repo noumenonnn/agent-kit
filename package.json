@@ -1,0 +1,38 @@
+{
+  "name": "pi-token-efficient-starter-kit",
+  "version": "2.2.0",
+  "private": true,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/noumenonnn/agent-kit.git" },
+  "homepage": "https://github.com/noumenonnn/agent-kit#readme",
+  "bugs": { "url": "https://github.com/noumenonnn/agent-kit/issues" },
+  "keywords": ["ai-agents", "context-engineering", "pi", "codex", "claude-code", "opencode", "agent-skills"],
+  "type": "module",
+  "description": "Offline context-efficient project tooling for Pi, Codex, Claude Code and OpenCode",
+  "bin": {
+    "agent-kit": "scripts/agent-kit.mjs"
+  },
+  "files": [
+    "scripts/", "portable/", "project-template/", "global/", "profiles/", "optional/",
+    "LICENSE", "AGENTS.md", "README.md", "README.ru.md", "CONTRIBUTING.md", "CHANGELOG.md", "SECURITY.md", "SOURCES.md", "MIGRATION-RU.md", "MATT-POCOCK-INTEGRATION.md", "TOKEN-BUDGET-CHECKLIST.md", "UNIVERSAL-RU.md", "RESEARCH-UNIVERSAL-RU.md", "CONTEXT-TOOLS-RU.md",
+    "EVALUATION.md", "MODEL-ROUTING.md", "versions.json", "verification/universal-v2.2.md", "verification/pi-v2.2-smoke.json"
+  ],
+  "pi": {
+    "skills": ["./portable/skills", "./global/skills"],
+    "prompts": ["./project-template/.pi/prompts"],
+    "extensions": []
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "setup": "node scripts/agent-kit.mjs setup",
+    "wizard": "node scripts/agent-kit.mjs wizard",
+    "doctor": "node scripts/agent-kit.mjs doctor",
+    "test": "node --test",
+    "check": "node scripts/check-kit.mjs",
+    "context:summary": "node scripts/summarize-context-evals.mjs",
+    "integrity:write": "node scripts/integrity.mjs --write",
+    "integrity:check": "node scripts/integrity.mjs"
+  }
+}

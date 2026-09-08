@@ -1,0 +1,38 @@
+{
+  "kitVersion": "2.2.0",
+  "universalAdapters": {
+    "agents": ["pi", "codex", "claude", "opencode"],
+    "skillsFormat": "Agent Skills SKILL.md",
+    "validation": "Offline installer/file-contract tests and native Pi 0.85.1 resource-loader/command-handler smoke passed. Full TUI, other live clients and provider calls not verified",
+    "research": "RESEARCH-UNIVERSAL-RU.md"
+  },
+  "verifiedOn": "2026-09-08",
+  "nodeMinimum": "22.19.0",
+  "pi": {
+    "package": "@earendil-works/pi-coding-agent",
+    "recommendedVersion": "0.85.1",
+    "releaseDate": "2026-09-05",
+    "source": "https://github.com/earendil-works/pi/blob/v0.85.1/packages/coding-agent/package.json",
+    "validation": "Pi 0.85.1 SDK resource loader verified project resources, optional extension and local Pi package; no full TUI/provider test"
+  },
+  "agenticoding": {
+    "package": "pi-agenticoding",
+    "pinnedVersion": "0.5.0",
+    "optional": true,
+    "requiresPiAtLeast": "0.84.1",
+    "source": "https://pi.dev/packages/pi-agenticoding"
+  },
+  "mattPocock": {
+    "source": "https://github.com/mattpocock/skills",
+    "pinnedCommit": null,
+    "policy": "Offline installer requires an explicitly reviewed full commit SHA. No floating remote installer."
+  },
+  "contextTools": {
+    "version": "0.1.0",
+    "optional": true,
+    "defaultGuard": "warn",
+    "delegation": "off until interactive session-scoped user consent",
+    "apiContract": "Pi extension modelRegistry.streamSimple + nested tool usage; capability-checked",
+    "validation": "Offline logic/adapter tests plus native Pi 0.85.1 loader and status handler with captured UI callback; full TUI/provider smoke still required"
+  }
+}

@@ -1,0 +1,520 @@
+TAP version 13
+# Subtest: context config starts warn-only with no provider or persistent consent
+ok 1 - context config starts warn-only with no provider or persistent consent
+  ---
+  duration_ms: 1.531047
+  type: 'test'
+  ...
+# Subtest: portable relative paths reject traversal, absolute paths, ADS and Windows reserved names
+ok 2 - portable relative paths reject traversal, absolute paths, ADS and Windows reserved names
+  ---
+  duration_ms: 0.730268
+  type: 'test'
+  ...
+# Subtest: sensitive paths include credentials, env files, settings and local artifacts
+ok 3 - sensitive paths include credentials, env files, settings and local artifacts
+  ---
+  duration_ms: 0.495219
+  type: 'test'
+  ...
+# Subtest: scopes must be explicit existing files/directories, not whole-root or wildcard
+ok 4 - scopes must be explicit existing files/directories, not whole-root or wildcard
+  ---
+  duration_ms: 2.132665
+  type: 'test'
+  ...
+# Subtest: snapshot preserves full file hash and selects exact UTF-8 ranges
+ok 5 - snapshot preserves full file hash and selects exact UTF-8 ranges
+  ---
+  duration_ms: 1.633146
+  type: 'test'
+  ...
+# Subtest: snapshot refuses binary data, invalid UTF-8, excessive files and hardlinks
+ok 6 - snapshot refuses binary data, invalid UTF-8, excessive files and hardlinks
+  ---
+  duration_ms: 1.396866
+  type: 'test'
+  ...
+# Subtest: symlink/junction source escapes are refused
+ok 7 - symlink/junction source escapes are refused
+  ---
+  duration_ms: 0.724496
+  type: 'test'
+  ...
+# Subtest: read guard measures the requested range, not full file size or existence of offset
+ok 8 - read guard measures the requested range, not full file size or existence of offset
+  ---
+  duration_ms: 2.612353
+  type: 'test'
+  ...
+# Subtest: read guard catches one huge line and counts non-ASCII bytes
+ok 9 - read guard catches one huge line and counts non-ASCII bytes
+  ---
+  duration_ms: 1.149867
+  type: 'test'
+  ...
+# Subtest: guard bounds scan work and reports unknown ranges instead of inventing a size
+ok 10 - guard bounds scan work and reports unknown ranges instead of inventing a size
+  ---
+  duration_ms: 1.056815
+  type: 'test'
+  ...
+# Subtest: bundle contains only approved selected ranges and no parent conversation
+ok 11 - bundle contains only approved selected ranges and no parent conversation
+  ---
+  duration_ms: 1.208178
+  type: 'test'
+  ...
+# Subtest: bundle rejects duplicate paths, outside scopes, empty ranges and excessive payloads
+ok 12 - bundle rejects duplicate paths, outside scopes, empty ranges and excessive payloads
+  ---
+  duration_ms: 1.693735
+  type: 'test'
+  ...
+# Subtest: evidence validation accepts exact quotes but not invented files, lines or quotes
+ok 13 - evidence validation accepts exact quotes but not invented files, lines or quotes
+  ---
+  duration_ms: 1.52343
+  type: 'test'
+  ...
+# Subtest: quotes cannot reference unseen lines of a partially transmitted file
+ok 14 - quotes cannot reference unseen lines of a partially transmitted file
+  ---
+  duration_ms: 0.691565
+  type: 'test'
+  ...
+# Subtest: source freshness detects edits after the snapshot
+ok 15 - source freshness detects edits after the snapshot
+  ---
+  duration_ms: 0.924548
+  type: 'test'
+  ...
+# Subtest: model identity never exposes URL userinfo/query secrets, but fingerprint detects changes
+ok 16 - model identity never exposes URL userinfo/query secrets, but fingerprint detects changes
+  ---
+  duration_ms: 0.446442
+  type: 'test'
+  ...
+# Subtest: usage normalization preserves provider accounting without double-counting token fields
+ok 17 - usage normalization preserves provider accounting without double-counting token fields
+  ---
+  duration_ms: 0.25232
+  type: 'test'
+  ...
+# Subtest: worker makes exactly one tool-less call, returns usage and writes no raw corpus
+ok 18 - worker makes exactly one tool-less call, returns usage and writes no raw corpus
+  ---
+  duration_ms: 8.27823
+  type: 'test'
+  ...
+# Subtest: invalid worker evidence is rejected while incurred usage/cost is retained
+ok 19 - invalid worker evidence is rejected while incurred usage/cost is retained
+  ---
+  duration_ms: 1.471547
+  type: 'test'
+  ...
+# Subtest: changed source causes rejection even after a valid worker response
+ok 20 - changed source causes rejection even after a valid worker response
+  ---
+  duration_ms: 2.485231
+  type: 'test'
+  ...
+# Subtest: worker never follows tool requests, accepts truncated responses or retries provider failures
+ok 21 - worker never follows tool requests, accepts truncated responses or retries provider failures
+  ---
+  duration_ms: 3.012248
+  type: 'test'
+  ...
+# Subtest: timeout returns unknown cost, not zero, even when an adapter ignores cancellation
+ok 22 - timeout returns unknown cost, not zero, even when an adapter ignores cancellation
+  ---
+  duration_ms: 101.836389
+  type: 'test'
+  ...
+# Subtest: abort before dispatch prevents a request; zero-rate models do not pretend cost is known
+ok 23 - abort before dispatch prevents a request; zero-rate models do not pretend cost is known
+  ---
+  duration_ms: 7.699833
+  type: 'test'
+  ...
+# Subtest: model context/input budget errors happen before dispatch
+ok 24 - model context/input budget errors happen before dispatch
+  ---
+  duration_ms: 2.441265
+  type: 'test'
+  ...
+# Subtest: adapter starts disabled and config cannot grant delegation permission
+ok 25 - adapter starts disabled and config cannot grant delegation permission
+  ---
+  duration_ms: 1.505186
+  type: 'test'
+  ...
+# Subtest: interactive denial and noninteractive mode never grant permission
+ok 26 - interactive denial and noninteractive mode never grant permission
+  ---
+  duration_ms: 1.049215
+  type: 'test'
+  ...
+# Subtest: adapter uses the configured provider registry and forwards nested usage to Pi
+ok 27 - adapter uses the configured provider registry and forwards nested usage to Pi
+  ---
+  duration_ms: 3.928315
+  type: 'test'
+  ...
+# Subtest: model endpoint/rate changes invalidate prior permission without a silent fallback
+ok 28 - model endpoint/rate changes invalidate prior permission without a silent fallback
+  ---
+  duration_ms: 0.786444
+  type: 'test'
+  ...
+# Subtest: session switches, forks, tree navigation, reload and disable revoke consent
+ok 29 - session switches, forks, tree navigation, reload and disable revoke consent
+  ---
+  duration_ms: 1.262981
+  type: 'test'
+  ...
+# Subtest: per-session dispatched attempt budget blocks repeated requests
+ok 30 - per-session dispatched attempt budget blocks repeated requests
+  ---
+  duration_ms: 1.874445
+  type: 'test'
+  ...
+# Subtest: one request at a time and revocation cancels active work
+ok 31 - one request at a time and revocation cancels active work
+  ---
+  duration_ms: 22.49532
+  type: 'test'
+  ...
+# Subtest: warn mode does not block reads; enforce blocks large requested ranges but not small ones
+ok 32 - warn mode does not block reads; enforce blocks large requested ranges but not small ones
+  ---
+  duration_ms: 1.829523
+  type: 'test'
+  ...
+# Subtest: user can permit one exact large Read without permitting delegation
+ok 33 - user can permit one exact large Read without permitting delegation
+  ---
+  duration_ms: 1.628399
+  type: 'test'
+  ...
+# Subtest: missing registry capability fails clearly without trying another client/provider
+ok 34 - missing registry capability fails clearly without trying another client/provider
+  ---
+  duration_ms: 0.501041
+  type: 'test'
+  ...
+# Subtest: installer leaves core clean; optional dry-run is empty and opt-in is reversible
+ok 35 - installer leaves core clean; optional dry-run is empty and opt-in is reversible
+  ---
+  duration_ms: 230.380692
+  type: 'test'
+  ...
+# Subtest: evaluation uses failed attempts in cost and latest acceptance per task
+ok 36 - evaluation uses failed attempts in cost and latest acceptance per task
+  ---
+  duration_ms: 0.754772
+  type: 'test'
+  ...
+# Subtest: evaluation does not add worker cost to Pi totals or turn unknown/unjudged into zero
+ok 37 - evaluation does not add worker cost to Pi totals or turn unknown/unjudged into zero
+  ---
+  duration_ms: 0.193797
+  type: 'test'
+  ...
+# Subtest: three-way evaluation accepts disjoint components and checks matched task sets
+ok 38 - three-way evaluation accepts disjoint components and checks matched task sets
+  ---
+  duration_ms: 0.258073
+  type: 'test'
+  ...
+# Subtest: approval cannot carry over if a session changes while the confirmation is open
+ok 39 - approval cannot carry over if a session changes while the confirmation is open
+  ---
+  duration_ms: 0.766185
+  type: 'test'
+  ...
+# Subtest: approved budget is frozen and a later config-file edit cannot increase it
+ok 40 - approved budget is frozen and a later config-file edit cannot increase it
+  ---
+  duration_ms: 2.945569
+  type: 'test'
+  ...
+# Subtest: worker receipt failure occurs before dispatch, and answer-write failure retains billed usage
+ok 41 - worker receipt failure occurs before dispatch, and answer-write failure retains billed usage
+  ---
+  duration_ms: 4.556741
+  type: 'test'
+  ...
+# Subtest: installer restores only the optional addon, without disturbing existing core files
+ok 42 - installer restores only the optional addon, without disturbing existing core files
+  ---
+  duration_ms: 193.775276
+  type: 'test'
+  ...
+# Subtest: authenticated model scope is respected and no fallback escapes it
+ok 43 - authenticated model scope is respected and no fallback escapes it
+  ---
+  duration_ms: 0.611568
+  type: 'test'
+  ...
+# Subtest: provider failures never persist raw error text or credential-bearing endpoint URLs
+ok 44 - provider failures never persist raw error text or credential-bearing endpoint URLs
+  ---
+  duration_ms: 1.806384
+  type: 'test'
+  ...
+# Subtest: model identity is rechecked immediately before invocation, not only before local I/O
+ok 45 - model identity is rechecked immediately before invocation, not only before local I/O
+  ---
+  duration_ms: 1.841183
+  type: 'test'
+  ...
+# Subtest: dry-run creates no files or directories
+ok 46 - dry-run creates no files or directories
+  ---
+  duration_ms: 51.190989
+  type: 'test'
+  ...
+# Subtest: relative targets and spaces resolve before copying, with flags in either order
+ok 47 - relative targets and spaces resolve before copying, with flags in either order
+  ---
+  duration_ms: 73.627692
+  type: 'test'
+  ...
+# Subtest: existing project files are preserved; .gitignore is merged and effective
+ok 48 - existing project files are preserved; .gitignore is merged and effective
+  ---
+  duration_ms: 86.427453
+  type: 'test'
+  ...
+# Subtest: repeated init is idempotent including ignore rules and receipts
+ok 49 - repeated init is idempotent including ignore rules and receipts
+  ---
+  duration_ms: 104.862352
+  type: 'test'
+  ...
+# Subtest: force creates byte-exact backups and reversible changes, retaining unrelated files
+ok 50 - force creates byte-exact backups and reversible changes, retaining unrelated files
+  ---
+  duration_ms: 112.31424
+  type: 'test'
+  ...
+# Subtest: restore refuses later user edits without partially reverting other files
+ok 51 - restore refuses later user edits without partially reverting other files
+  ---
+  duration_ms: 94.763491
+  type: 'test'
+  ...
+# Subtest: global core defaults keep compaction and respect PI_CODING_AGENT_DIR
+ok 52 - global core defaults keep compaction and respect PI_CODING_AGENT_DIR
+  ---
+  duration_ms: 50.520097
+  type: 'test'
+  ...
+# Subtest: global updates never delete custom skill extras, even with force
+ok 53 - global updates never delete custom skill extras, even with force
+  ---
+  duration_ms: 91.379907
+  type: 'test'
+  ...
+# Subtest: existing settings stay byte-identical until explicit deep merge with backup
+ok 54 - existing settings stay byte-identical until explicit deep merge with backup
+  ---
+  duration_ms: 88.500562
+  type: 'test'
+  ...
+# Subtest: AGENTS managed block updates without changing surrounding user instructions
+ok 55 - AGENTS managed block updates without changing surrounding user instructions
+  ---
+  duration_ms: 91.019602
+  type: 'test'
+  ...
+# Subtest: malformed managed markers fail before any installation changes
+ok 56 - malformed managed markers fail before any installation changes
+  ---
+  duration_ms: 38.667386
+  type: 'test'
+  ...
+# Subtest: agenticoding compaction change requires explicit acknowledgement and pin
+ok 57 - agenticoding compaction change requires explicit acknowledgement and pin
+  ---
+  duration_ms: 88.042199
+  type: 'test'
+  ...
+# Subtest: a disabled extension entry does not authorize disabling auto-compaction
+ok 58 - a disabled extension entry does not authorize disabling auto-compaction
+  ---
+  duration_ms: 41.642503
+  type: 'test'
+  ...
+# Subtest: unknown flags and targets inside the kit are rejected
+ok 59 - unknown flags and targets inside the kit are rejected
+  ---
+  duration_ms: 76.156452
+  type: 'test'
+  ...
+# Subtest: installer refuses a symlinked target subtree before writing outside it
+ok 60 - installer refuses a symlinked target subtree before writing outside it
+  ---
+  duration_ms: 44.988221
+  type: 'test'
+  ...
+# Subtest: installer refuses an existing installation lock
+ok 61 - installer refuses an existing installation lock
+  ---
+  duration_ms: 52.409118
+  type: 'test'
+  ...
+# Subtest: Matt installer requires full immutable commit, not latest
+ok 62 - Matt installer requires full immutable commit, not latest
+  ---
+  duration_ms: 44.408858
+  type: 'test'
+  ...
+# Subtest: Matt installer copies committed blobs, preserves license, never executes scripts
+ok 63 - Matt installer copies committed blobs, preserves license, never executes scripts
+  ---
+  duration_ms: 101.21927
+  type: 'test'
+  ...
+# Subtest: compact runner returns real exit code and preserves stderr context
+ok 64 - compact runner returns real exit code and preserves stderr context
+  ---
+  duration_ms: 72.562796
+  type: 'test'
+  ...
+# Subtest: exit zero is labelled process OK, not fabricated test PASS
+ok 65 - exit zero is labelled process OK, not fabricated test PASS
+  ---
+  duration_ms: 67.394918
+  type: 'test'
+  ...
+# Subtest: long unbroken output is byte-bounded; log cap is explicit and result is accurate
+ok 66 - long unbroken output is byte-bounded; log cap is explicit and result is accurate
+  ---
+  duration_ms: 84.09471
+  type: 'test'
+  ...
+# Subtest: runner writes complete below-cap logs without truncation from process.exit
+ok 67 - runner writes complete below-cap logs without truncation from process.exit
+  ---
+  duration_ms: 69.732118
+  type: 'test'
+  ...
+# Subtest: runner supports split multibyte UTF-8 and strips terminal control sequences
+ok 68 - runner supports split multibyte UTF-8 and strips terminal control sequences
+  ---
+  duration_ms: 69.62512
+  type: 'test'
+  ...
+# Subtest: runner never echoes command arguments and never adds an implicit shell
+ok 69 - runner never echoes command arguments and never adds an implicit shell
+  ---
+  duration_ms: 67.338721
+  type: 'test'
+  ...
+# Subtest: missing executable returns 127 and records spawn error
+ok 70 - missing executable returns 127 and records spawn error
+  ---
+  duration_ms: 43.057047
+  type: 'test'
+  ...
+# Subtest: timeouts terminate finite-check process and return 124
+ok 71 - timeouts terminate finite-check process and return 124
+  ---
+  duration_ms: 692.118899
+  type: 'test'
+  ...
+# Subtest: SIGINT returns 130 instead of an arbitrary failure
+ok 72 - SIGINT returns 130 instead of an arbitrary failure
+  ---
+  duration_ms: 600.445776
+  type: 'test'
+  ...
+# Subtest: log path refuses symlink escape
+ok 73 - log path refuses symlink escape
+  ---
+  duration_ms: 39.521735
+  type: 'test'
+  ...
+# Subtest: invalid runner options fail before creating logs
+ok 74 - invalid runner options fail before creating logs
+  ---
+  duration_ms: 36.949559
+  type: 'test'
+  ...
+# Subtest: porcelain parser handles rename order, spaces, Unicode and embedded newlines
+ok 75 - porcelain parser handles rename order, spaces, Unicode and embedded newlines
+  ---
+  duration_ms: 0.36344
+  type: 'test'
+  ...
+# Subtest: diff includes staged, unstaged and untracked paths; --no-log writes nothing
+ok 76 - diff includes staged, unstaged and untracked paths; --no-log writes nothing
+  ---
+  duration_ms: 57.922637
+  type: 'test'
+  ...
+# Subtest: diff default report retains all paths while terminal file list is bounded
+ok 77 - diff default report retains all paths while terminal file list is bounded
+  ---
+  duration_ms: 55.088747
+  type: 'test'
+  ...
+# Subtest: diff --base includes committed branch changes relative to merge base
+ok 78 - diff --base includes committed branch changes relative to merge base
+  ---
+  duration_ms: 72.464107
+  type: 'test'
+  ...
+# Subtest: diff handles staged rename and does not run an external diff driver
+ok 79 - diff handles staged rename and does not run an external diff driver
+  ---
+  duration_ms: 61.429658
+  type: 'test'
+  ...
+# Subtest: diff outside Git fails and does not create a misleading report
+ok 80 - diff outside Git fails and does not create a misleading report
+  ---
+  duration_ms: 39.981508
+  type: 'test'
+  ...
+# Subtest: platform launcher delegates to the same safe Node installer
+ok 81 - platform launcher delegates to the same safe Node installer
+  ---
+  duration_ms: 51.954062
+  type: 'test'
+  ...
+# Subtest: diff script works when its own installation path contains spaces
+ok 82 - diff script works when its own installation path contains spaces
+  ---
+  duration_ms: 53.746553
+  type: 'test'
+  ...
+# Subtest: POSIX timeout also stops descendants that remain in the process group
+ok 83 - POSIX timeout also stops descendants that remain in the process group
+  ---
+  duration_ms: 1645.542398
+  type: 'test'
+  ...
+# Subtest: doctor checks local configuration without claiming runtime integration
+ok 84 - doctor checks local configuration without claiming runtime integration
+  ---
+  duration_ms: 151.494335
+  type: 'test'
+  ...
+# Subtest: diff identifies unresolved merge conflicts and returns nonzero
+ok 85 - diff identifies unresolved merge conflicts and returns nonzero
+  ---
+  duration_ms: 77.149261
+  type: 'test'
+  ...
+1..85
+# tests 85
+# suites 0
+# pass 85
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6207.400719

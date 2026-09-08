@@ -1,0 +1,12 @@
+.agent/tmp/
+.agent/handoffs/
+.pi-starter-backups/
+.pi-starter-install.lock
+node_modules/
+coverage/
+*.tgz
+*.log
+.env
+.env.*
+!.env.example
+/CHANGES.patch

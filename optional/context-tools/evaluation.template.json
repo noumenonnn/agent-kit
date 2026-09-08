@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "attempts": [
+    {
+      "runId": "replace-me-full-read",
+      "taskId": "same-real-task-001",
+      "variant": "full-read",
+      "attempt": 1,
+      "accepted": null,
+      "durationMs": null,
+      "cost": {
+        "kind": "pi-attempt-total",
+        "usd": null
+      },
+      "costBasis": "unknown"
+    },
+    {
+      "runId": "replace-me-targeted-read",
+      "taskId": "same-real-task-001",
+      "variant": "targeted-read",
+      "attempt": 1,
+      "accepted": null,
+      "durationMs": null,
+      "cost": {
+        "kind": "pi-attempt-total",
+        "usd": null
+      },
+      "costBasis": "unknown"
+    },
+    {
+      "runId": "replace-me-delegated",
+      "taskId": "same-real-task-001",
+      "variant": "delegated",
+      "attempt": 1,
+      "accepted": null,
+      "durationMs": null,
+      "cost": {
+        "kind": "pi-attempt-total",
+        "usd": null
+      },
+      "costBasis": "unknown"
+    }
+  ]
+}

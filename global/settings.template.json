@@ -1,0 +1,9 @@
+{
+  "defaultThinkingLevel": "low",
+  "showCacheMissNotices": true,
+  "defaultProjectTrust": "ask",
+  "enableSkillCommands": true,
+  "compaction": {
+    "enabled": true
+  }
+}

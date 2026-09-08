@@ -1,0 +1,5 @@
+# Local agent outputs may contain secrets; do not commit them.
+.agent/tmp/
+.agent/handoffs/
+.pi-starter-backups/
+.pi-starter-install.lock
