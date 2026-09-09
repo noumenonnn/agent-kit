@@ -1,5 +1,7 @@
 # Security
 
+[Русский](SECURITY.ru.md)
+
 ## Reporting a vulnerability
 
 Use GitHub's **Security → Report a vulnerability** option when available. Otherwise, open an issue requesting a private contact channel without disclosing exploit details, tokens, private code, or raw logs.

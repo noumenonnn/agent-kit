@@ -1,10 +1,20 @@
 {
-  "kitVersion": "2.2.0",
+  "kitVersion": "2.3.0",
   "universalAdapters": {
-    "agents": ["pi", "codex", "claude", "opencode"],
+    "agents": [
+      "pi",
+      "codex",
+      "claude",
+      "opencode"
+    ],
     "skillsFormat": "Agent Skills SKILL.md",
     "validation": "Offline installer/file-contract tests and native Pi 0.85.1 resource-loader/command-handler smoke passed. Full TUI, other live clients and provider calls not verified",
-    "research": "RESEARCH-UNIVERSAL-RU.md"
+    "research": "RESEARCH-UNIVERSAL-RU.md",
+    "languages": [
+      "en",
+      "ru"
+    ],
+    "documentation": "docs/languages.json"
   },
   "verifiedOn": "2026-09-08",
   "nodeMinimum": "22.19.0",

@@ -1,5 +1,15 @@
 # Changelog
 
+[Русский](CHANGELOG.ru.md)
+
+## 2.3.0 — 2026-09-09
+
+- English and Russian versions of all Markdown documentation and bundled instructions; pair catalog, change tracking, and CI completeness checks.
+- `setup`, `init`, and `global` accept `--language en|ru`; the wizard offers language selection. Updates retain language; switching requires a backed-up update.
+- One active language per skill/prompt; both translations available separately outside automatic discovery.
+- SETUP guides and `agent-kit-setup` skill for user-requested setup of new or existing projects.
+- Tests for Russian resources across all adapters, language switching, user-context preservation, and OpenCode argument conversion.
+
 ## 2.2.0 — 2026-09-08
 
 ### Added

@@ -2,7 +2,7 @@
 
 ## Choose the smallest useful workflow
 
-Use `efficient-task` for an implementation task, `efficient-context` for a bounded evidence bundle, and `efficient-handoff` when resuming in another session or agent. Ordinary questions need no ceremony. Native permissions remain authoritative; skills are guidance, not a sandbox.
+Use `efficient-task` for an implementation task, `efficient-context` for a bounded evidence bundle, and `efficient-handoff` when resuming in another session or agent. Use `agent-kit-setup` to configure or update the kit. Ordinary questions need no ceremony. Native permissions remain authoritative; skills are guidance, not a sandbox.
 
 ## Gather context progressively
 

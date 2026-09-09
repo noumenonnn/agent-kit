@@ -1,5 +1,7 @@
 # Context and cost checklist
 
+[Русский](TOKEN-BUDGET-CHECKLIST.ru.md)
+
 ## Stable hot context
 - [ ] AGENTS is a small router with essential safety constraints, not a handbook.
 - [ ] Read the project commands/domain details only when needed.

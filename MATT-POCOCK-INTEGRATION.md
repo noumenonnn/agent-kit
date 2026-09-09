@@ -1,5 +1,7 @@
 # Matt Pocock skills + Pi
 
+[Русский](MATT-POCOCK-INTEGRATION.ru.md)
+
 Keep Matt's reusable engineering discipline; do not duplicate it with a large second workflow framework. This kit's own skills cover context, safe deterministic execution and evidence.
 
 ## Correct Pi invocation

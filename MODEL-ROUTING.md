@@ -1,5 +1,7 @@
 # Model routing: capability first, measured economics
 
+[Русский](MODEL-ROUTING.ru.md)
+
 Core Pi does not implement the `model-group`, `thinking` or `readonly` workflow policies from pi-agenticoding. Without the extension, select the model/thinking manually. Do not claim automatic cheap routing from frontmatter alone.
 
 With the reviewed `pi-agenticoding@0.5.0`, configure `/model-groups`:
@@ -29,6 +31,6 @@ Keep AGENTS and resource catalogs stable during a phase. Avoid dynamic status te
 Record total accepted-task cost, quality, latency, retries and child usage as described in `EVALUATION.md`. Do not choose model brands by fashion or hard-code current price assumptions into prompts.
 
 
-## Опциональный bulk-reader v2.1
+## Optional bulk-reader v2.1
 
-Это отдельный узкий read-only вызов, не spawn/AgentSession. Модель и scopes выбираются человеком в `/context-tools enable`; fallback/наследования истории нет. Не выбирайте «самую дешёвую» модель без проверки точности цитат и качества на ваших задачах. Учёт всего процесса и сравнение с targeted-read — в EVALUATION.md. Core compaction и роли agenticoding от этой установки не меняются.
+This is a separate narrow read-only call, not spawn/AgentSession. A human chooses the model and scopes in `/context-tools enable`; no fallback or inherited history. Do not choose the cheapest model without testing quote accuracy and task quality. Full accounting and targeted-read comparisons are in EVALUATION.md. This installation does not change core compaction or agenticoding roles.

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { canonicalTarget, safePath } from '../../project-template/.agent/scripts/lib/runtime.mjs';
+import { language, resource, translations } from './languages.mjs';
 
 export const AGENTS = ['pi', 'codex', 'claude', 'opencode'];
 const BEGIN = '<!-- AGENT-KIT:BEGIN -->', END = '<!-- AGENT-KIT:END -->';
@@ -18,6 +19,7 @@ export function selectAgents(value = 'pi') {
 function stateFrom(bytes) {
   if (!bytes) return null;
   const state = JSON.parse(bytes.toString('utf8'));
+  if (state.language !== undefined) language(state.language);
   if (state.schemaVersion !== 1 || !Array.isArray(state.agents) || !state.agents.length || state.agents.some(a => !AGENTS.includes(a)) || !state.files || typeof state.files !== 'object' || Array.isArray(state.files)) throw new Error('Invalid .agent/kit.json; restore or repair the installation record');
   for (const [file, hash] of Object.entries(state.files)) {
     if (!file || !/^[a-f0-9]{64}$/.test(hash)) throw new Error('Invalid installation file hash');
@@ -41,17 +43,24 @@ function suggestedConventions(plan) {
   let pkg;
   try { pkg = JSON.parse(bytes); } catch { return null; }
   const manager = plan.existing('pnpm-lock.yaml') ? 'pnpm' : plan.existing('yarn.lock') ? 'yarn' : plan.existing('bun.lock') || plan.existing('bun.lockb') ? 'bun' : 'npm';
-  const commands = ['dev', 'build', 'test', 'check', 'typecheck', 'lint'].filter(key => typeof pkg?.scripts?.[key] === 'string').map(key => `- \`${manager} run ${key}\` — declared in package.json; not executed or verified by setup.`);
+  const ru = plan.opt.language === 'ru';
+  const commands = ['dev', 'build', 'test', 'check', 'typecheck', 'lint'].filter(key => typeof pkg?.scripts?.[key] === 'string').map(key => `- \`${manager} run ${key}\` — ${ru ? 'объявлена в package.json; установщик её не запускал и не проверял.' : 'declared in package.json; not executed or verified by setup.'}`);
   if (!commands.length) return null;
+  if (ru) return `# Правила репозитория\n\n## Объявленные команды\n\n${commands.join('\n')}\n\nПеред запуском проверьте текущий package.json и область workspace. Это подсказки на момент установки. Для именования, оформления и тестов следуйте соседнему коду. Добавляйте сюда найденные устойчивые правила проекта.\n`;
   return `# Repository Conventions\n\n## Declared commands\n\n${commands.join('\n')}\n\nCheck the current package.json and workspace scope before running a command. Treat these as setup-time suggestions. Follow nearby code for naming, formatting and test patterns. Add durable project-specific rules here when discovered.\n`;
 }
 
 export function universalPlan(plan, kit) {
   const previous = stateFrom(plan.existing('.agent/kit.json'));
+  const selectedLanguage = language(plan.opt.language ?? previous?.language ?? 'en');
+  if (previous && selectedLanguage !== (previous.language ?? 'en') && !plan.opt.force) throw new Error('Changing instruction language requires --force with backup; preview with --force --dry-run. / Для смены языка нужен --force с резервной копией.');
+  plan.opt.language = selectedLanguage;
   const requested = selectAgents(plan.opt.agents ?? previous?.agents.join(',') ?? 'pi');
   const agents = AGENTS.filter(a => requested.includes(a) || previous?.agents.includes(a));
   if (plan.opt.withContextTools && !agents.includes('pi')) throw new Error('--with-context-tools requires the pi adapter');
-  const read = relative => fs.readFileSync(path.join(kit, relative));
+  const read = relative => resource(kit, relative, selectedLanguage);
+  const setupGuide = (lang, reference = false) => fs.readFileSync(path.join(kit, lang === 'ru' ? 'SETUP.ru.md' : 'SETUP.md'), 'utf8')
+    .replace(lang === 'ru' ? '](SETUP.md)' : '](SETUP.ru.md)', `](${reference ? '../translations/' : '../'}${lang === 'ru' ? 'en' : 'ru'}/SETUP.md)`);
   // Shared user-authored project documents are never replaced, even with --force.
   for (const relative of ['CONTEXT.md', 'docs/adr/0000-template.md']) plan.add(relative, read(`project-template/${relative}`), false);
   for (const name of fs.readdirSync(path.join(kit, 'project-template/.agent/references')).sort()) {
@@ -60,6 +69,8 @@ export function universalPlan(plan, kit) {
   }
   plan.tree(path.join(kit, 'project-template/.agent/scripts'), '.agent/scripts');
   plan.add('.agent/references/workflow.md', read('portable/workflow.md'));
+  plan.add('.agent/references/setup.md', setupGuide(selectedLanguage, true));
+  for (const source of ['portable', 'global/skills', 'project-template']) translations(plan, kit, path.join(kit, source), source);
 
   if (agents.some(a => a !== 'claude')) {
     const override = plan.existing('AGENTS.override.md');
@@ -78,11 +89,11 @@ export function universalPlan(plan, kit) {
     const dest = `${root}/${name}`;
     if (fs.existsSync(safePath(plan.root, dest)) && !plan.opt.force) {
       plan.notes.push(`PRESERVED entire skill ${dest}; --force performs a backed-up update`);
-    } else plan.tree(path.join(source, name), dest);
+    } else plan.tree(path.join(source, name), dest, true);
   }
 
   if (agents.includes('pi')) {
-    plan.tree(path.join(kit, 'project-template/.pi/prompts'), '.pi/prompts');
+    plan.tree(path.join(kit, 'project-template/.pi/prompts'), '.pi/prompts', true);
     plan.add('.pi/settings.json', read('project-template/.pi/settings.json'), false);
     plan.notes.push('Pi: /efficient-task <task>; /skill:efficient-context; /portable-handoff. Reload in a trusted project.');
   }
@@ -90,7 +101,7 @@ export function universalPlan(plan, kit) {
     for (const name of fs.readdirSync(path.join(kit, 'project-template/.pi/prompts')).sort()) {
       const raw = read(`project-template/.pi/prompts/${name}`).toString();
       const description = /^description: (.+)$/m.exec(raw)?.[1];
-      const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').replaceAll('$@', '$ARGUMENTS').replace('${1:-.agent/handoffs/latest.md}', '.agent/handoffs/latest.md');
+      const body = raw.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '').replace(/\$\{@:-[^}]*\}/g, () => '$ARGUMENTS').replaceAll('$@', '$ARGUMENTS').replace('${1:-.agent/handoffs/latest.md}', '.agent/handoffs/latest.md');
       plan.add(`.opencode/commands/${name}`, `---\ndescription: ${description}\n---\n${body}`);
     }
     plan.notes.push('OpenCode: /efficient-task <task>; shared skills are loaded on demand.');
@@ -106,12 +117,19 @@ export function universalPlan(plan, kit) {
   const entry = shellQuote(path.join(kit, 'scripts/agent-kit.mjs'));
   const target = shellQuote(plan.root);
   const firstSteps = { pi: '`/efficient-task <task>`', codex: '`$efficient-task <task>`', claude: '`/efficient-task <task>`', opencode: '`/efficient-task <task>`' };
-  plan.add('.agent/GETTING-STARTED.md', `# Agent Kit\n\nInstalled for ${agents.join(', ')}. Open the project in your agent and follow its normal project-trust flow.\n\n${agents.map(a => `- ${a}: ${firstSteps[a]}`).join('\n')}\n\nRead \`.agent/references/conventions.md\` for project checks. Context tools and handoff instructions are in \`.agent/references/workflow.md\`.\n\nStatic diagnosis (keep the kit folder available):\n\n\`\`\`sh\nnode ${entry} doctor --target ${target}\n\`\`\`\n\nInstallation records: \`.agent/kit.json\`. Backups: \`.pi-starter-backups/\`. Setup is additive; rerun with the same agents for repair. Review \`--dry-run\` before \`--force\` updates. Restore manifests in reverse chronological order; later user edits are protected.\n`, true);
+  const gettingStarted = lang => lang === 'ru'
+    ? `# Agent Kit\n\nУстановлено для ${agents.join(', ')}. Откройте проект в агенте и пройдите его обычную проверку доверия.\n\n${agents.map(a => `- ${a}: ${firstSteps[a]}`).join('\n')}\n\nКоманды проекта: \`.agent/references/conventions.md\`. Контекст и передача работы: \`.agent/references/workflow.md\`. Настройка силами агента: \`.agent/references/setup.md\` или навык \`agent-kit-setup\`. Обе языковые версии инструкций: \`.agent/translations/en/\` и \`.agent/translations/ru/\`; они не загружаются автоматически.\n\nДиагностика (сохраните доступ к папке комплекта):\n\n\`\`\`sh\nnode ${entry} doctor --target ${target}\n\`\`\`\n\nУчёт установки: \`.agent/kit.json\`. Резервные копии: \`.pi-starter-backups/\`. Setup добавляет адаптеры; повторите тот же выбор для восстановления. Перед обновлением через \`--force\` просмотрите \`--dry-run\`. Откатывайте manifests в обратном порядке; поздние изменения пользователя защищены.\n`
+    : `# Agent Kit\n\nInstalled for ${agents.join(', ')}. Open the project in your agent and follow its normal project-trust flow.\n\n${agents.map(a => `- ${a}: ${firstSteps[a]}`).join('\n')}\n\nProject checks: \`.agent/references/conventions.md\`. Context and handoff: \`.agent/references/workflow.md\`. Agent-led setup: \`.agent/references/setup.md\` or the \`agent-kit-setup\` skill. Both instruction languages: \`.agent/translations/en/\` and \`.agent/translations/ru/\`; these are not loaded automatically.\n\nStatic diagnosis (keep the kit folder available):\n\n\`\`\`sh\nnode ${entry} doctor --target ${target}\n\`\`\`\n\nInstallation records: \`.agent/kit.json\`. Backups: \`.pi-starter-backups/\`. Setup is additive; rerun the same selection for repair. Preview \`--dry-run\` before \`--force\` updates. Restore manifests in reverse order; later user edits are protected.\n`;
+  plan.add('.agent/GETTING-STARTED.md', gettingStarted(selectedLanguage), true);
+  for (const lang of ['en', 'ru']) {
+    plan.add(`.agent/GETTING-STARTED.${lang}.md`, gettingStarted(lang));
+    plan.add(`.agent/translations/${lang}/SETUP.md`, setupGuide(lang));
+  }
   plan.ignore();
   const files = { ...previous?.files };
   for (const change of plan.changes.values()) if (change.relative !== '.agent/kit.json') files[change.relative.replaceAll(path.sep, '/')] = digest(change.after);
   const next = { schemaVersion: 1, kitVersion: JSON.parse(read('package.json')).version, agents,
-    preset: sources.length > 1 ? 'deep' : 'lean', contextTools: Boolean(plan.opt.withContextTools || previous?.contextTools), files };
+    language: selectedLanguage, preset: sources.length > 1 ? 'deep' : 'lean', contextTools: Boolean(plan.opt.withContextTools || previous?.contextTools), files };
   plan.add('.agent/kit.json', encode(next), true);
   plan.notes.unshift(`AGENTS: ${agents.join(', ')}. Scope: project. Preset: ${next.preset}. No network or model calls.`);
   plan.notes.push(`Next: node ${entry} doctor --target ${target}`);
@@ -146,7 +164,7 @@ export function inspectProject(input) {
     if (!fs.existsSync(file)) report('ERROR', `Missing installed file: ${relative}; rerun setup`);
     else if (digest(fs.readFileSync(file)) !== expected) report('WARN', `Changed since setup: ${relative}; preserve intentional edits or review --force`);
   }
-  for (const name of ['efficient-task', 'efficient-context', 'efficient-handoff']) {
+  for (const name of ['efficient-task', 'efficient-context', 'efficient-handoff', ...(state.language ? ['agent-kit-setup'] : [])]) {
     const folders = state.agents.some(a => a !== 'claude') ? ['.agents/skills'] : [];
     if (state.agents.includes('claude')) folders.push('.claude/skills');
     for (const folder of folders) {
@@ -180,5 +198,5 @@ export function inspectProject(input) {
   if (fs.existsSync(conventions) && /TODO/.test(fs.readFileSync(conventions, 'utf8'))) report('WARN', 'Fill project commands in .agent/references/conventions.md');
   if (!findings.some(f => f.level === 'ERROR')) report('OK', 'Installed files checked; no missing required artifacts or divergent skill copies');
   report('INFO', 'Static checks only. Client discovery, authentication, native hooks and live provider behavior require a session smoke test.');
-  return { schemaVersion: 1, root, agents: state.agents, preset: state.preset, contextTools: state.contextTools, runtimeVerified: false, findings };
+  return { schemaVersion: 1, root, agents: state.agents, language: state.language ?? 'en', preset: state.preset, contextTools: state.contextTools, runtimeVerified: false, findings };
 }

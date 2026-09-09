@@ -19,12 +19,12 @@ try {
   const base = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'agent-kit-pi-smoke-')));
   const results = [];
   try {
-    for (const scenario of ['project', 'context-tools', 'package']) {
+    for (const scenario of ['project', 'project-ru', 'context-tools', 'context-tools-ru', 'package']) {
       const cwd = path.join(base, scenario), agentDir = path.join(base, `${scenario}-profile`);
       fs.mkdirSync(path.join(cwd, '.git'), { recursive: true });
       fs.mkdirSync(agentDir, { recursive: true });
       if (scenario !== 'package') {
-        execFileSync(process.execPath, [path.join(kit, 'scripts/agent-kit.mjs'), 'setup', cwd, '--agents', 'all', ...(scenario === 'context-tools' ? ['--with-context-tools'] : [])], { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15000 });
+        execFileSync(process.execPath, [path.join(kit, 'scripts/agent-kit.mjs'), 'setup', cwd, '--agents', 'all', '--language', scenario.endsWith('-ru') ? 'ru' : 'en', ...(scenario.startsWith('context-tools') ? ['--with-context-tools'] : [])], { stdio: ['ignore', 'pipe', 'pipe'], timeout: 15000 });
       } else {
         fs.mkdirSync(path.join(cwd, '.pi'), { recursive: true });
         fs.writeFileSync(path.join(cwd, '.pi/settings.json'), JSON.stringify({ packages: [kit] }));
@@ -37,14 +37,16 @@ try {
       assert.deepEqual(extensions.errors, []);
       const relevant = file => file.startsWith((scenario === 'package' ? kit : cwd) + path.sep);
       const skills = loader.getSkills().skills.filter(s => relevant(s.filePath));
-      for (const name of ['efficient-task', 'efficient-context', 'efficient-handoff']) assert.ok(skills.some(s => s.name === name), `Pi did not discover ${name} in ${scenario}`);
+      for (const name of ['efficient-task', 'efficient-context', 'efficient-handoff', 'agent-kit-setup']) assert.ok(skills.some(s => s.name === name), `Pi did not discover ${name} in ${scenario}`);
+      assert.equal(skills.length, scenario === 'package' ? 10 : 4, `Unexpected skill discovery: ${scenario}`);
+      if (scenario.endsWith('-ru')) for (const skill of skills) assert.match(fs.readFileSync(skill.filePath, 'utf8'), /[а-яё]{3}/i);
       const prompts = loader.getPrompts().prompts.filter(p => relevant(p.filePath));
       assert.equal(prompts.length, 7, `Pi prompts: ${scenario}`);
       assert.ok(prompts.some(p => p.name === 'efficient-task'));
       const diagnostics = [...loader.getSkills().diagnostics, ...loader.getPrompts().diagnostics].filter(d => d.path && relevant(d.path));
       assert.deepEqual(diagnostics, [], `Pi resource diagnostics: ${scenario}`);
       let status = null;
-      if (scenario === 'context-tools') {
+      if (scenario.startsWith('context-tools')) {
         const extension = extensions.extensions.find(e => e.commands.has('context-tools'));
         assert.ok(extension, 'Pi did not register context-tools');
         const notices = [];

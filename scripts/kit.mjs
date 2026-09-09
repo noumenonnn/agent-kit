@@ -8,6 +8,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { atomicWrite, canonicalTarget, safePath } from '../project-template/.agent/scripts/lib/runtime.mjs';
 import { universalPlan } from './lib/universal.mjs';
+import { language, resource } from './lib/languages.mjs';
 
 const KIT = fs.realpathSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
 const hash = b => createHash('sha256').update(b).digest('hex');
@@ -15,10 +16,10 @@ const json = b => JSON.parse(b.toString('utf8').replace(/^\uFEFF/, ''));
 const BEGIN = '<!-- PI-TOKEN-STARTER:BEGIN -->', END = '<!-- PI-TOKEN-STARTER:END -->';
 const help = `Usage (all local/offline; no third-party execution):
   node scripts/kit.mjs global [--pi-home DIR] [--force] [--dry-run] [--apply-settings]
-      [--profile core|agenticoding] [--ack-agenticoding]
-  node scripts/kit.mjs init [--target DIR] [--force] [--dry-run]
+      [--profile core|agenticoding] [--ack-agenticoding] [--language en|ru]
+  node scripts/kit.mjs init [--target DIR] [--force] [--dry-run] [--language en|ru]
   node scripts/agent-kit.mjs setup [DIR] [--agents pi|codex|claude|opencode|all]
-      [--preset lean|deep] [--with-context-tools] [--force] [--dry-run]
+      [--preset lean|deep] [--language en|ru] [--with-context-tools] [--force] [--dry-run]
   node scripts/kit.mjs matt --source CHECKOUT --ref FULL_COMMIT_SHA
       [--target DIR] [--preset lean|deep] [--force] [--dry-run]
   node scripts/kit.mjs context-tools --target DIR [--force] [--dry-run]
@@ -31,7 +32,7 @@ function parse(argv) {
   if (!command || ['-h', '--help'].includes(command)) return { command: 'help' };
   const out = { command, force: false, dryRun: false, applySettings: false, profile: 'core', preset: 'lean' };
   const flags = { '--force': 'force', '--dry-run': 'dryRun', '--apply-settings': 'applySettings', '--ack-agenticoding': 'ackAgenticoding', '--skip-agenticoding': 'skipAgenticoding', '--with-context-tools': 'withContextTools' };
-  const values = { '--target': 'target', '--pi-home': 'piHome', '--profile': 'profile', '--source': 'source', '--ref': 'ref', '--preset': 'preset', '--manifest': 'manifest', '--agents': 'agents' };
+  const values = { '--target': 'target', '--pi-home': 'piHome', '--profile': 'profile', '--source': 'source', '--ref': 'ref', '--preset': 'preset', '--manifest': 'manifest', '--agents': 'agents', '--language': 'language' };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (flags[a]) out[flags[a]] = true;
@@ -46,6 +47,10 @@ function parse(argv) {
   if (command === 'setup' && (out.applySettings || out.piHome || out.source || out.ref || out.manifest || out.ackAgenticoding || out.skipAgenticoding || out.profile !== 'core')) throw new Error('setup supports project adapters only; use global for Pi global settings');
   if (!['core', 'agenticoding'].includes(out.profile)) throw new Error('Profile must be core or agenticoding');
   if (!['lean', 'deep'].includes(out.preset)) throw new Error('Preset must be lean or deep');
+  if (out.language) {
+    language(out.language);
+    if (!['setup', 'init', 'global'].includes(command)) throw new Error('--language applies to setup, init or global');
+  }
   return out;
 }
 
@@ -71,12 +76,12 @@ class Plan {
     if (before && !replace) { this.notes.push(`PRESERVED ${relative}`); return; }
     this.changes.set(relative, { relative, file, before, after, mode: before ? fs.statSync(file).mode & 0o777 : mode });
   }
-  tree(source, relative = '') {
+  tree(source, relative = '', localized = false) {
     for (const e of fs.readdirSync(source, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
       const src = path.join(source, e.name), dest = path.join(relative, e.name);
       if (e.isSymbolicLink()) throw new Error(`Source symlink refused: ${src}`);
-      if (e.isDirectory()) this.tree(src, dest);
-      else if (e.isFile()) this.add(dest, fs.readFileSync(src), this.opt.force, fs.statSync(src).mode & 0o777);
+      if (e.isDirectory()) this.tree(src, dest, localized);
+      else if (e.isFile()) this.add(dest, localized ? resource(KIT, path.relative(KIT, src).replaceAll(path.sep, '/'), this.opt.language) : fs.readFileSync(src), this.opt.force, fs.statSync(src).mode & 0o777);
       else throw new Error(`Unsupported source file: ${src}`);
     }
   }
@@ -104,9 +109,9 @@ function globalPlan(plan) {
   for (const name of fs.readdirSync(path.join(KIT, 'global/skills')).sort()) {
     const dest = safePath(plan.root, `skills/${name}`);
     if (fs.existsSync(dest) && !opt.force) { plan.notes.push(`PRESERVED entire skill skills/${name} (use --force for a backed-up update)`); continue; }
-    plan.tree(path.join(KIT, 'global/skills', name), `skills/${name}`);
+    plan.tree(path.join(KIT, 'global/skills', name), `skills/${name}`, true);
   }
-  const fragment = fs.readFileSync(path.join(KIT, 'global/AGENTS.fragment.md'), 'utf8').trim();
+  const fragment = resource(KIT, 'global/AGENTS.fragment.md', opt.language).toString().trim();
   const existing = plan.existing('AGENTS.md')?.toString('utf8') || '';
   const starts = existing.split(BEGIN).length - 1, ends = existing.split(END).length - 1;
   if (starts !== ends || starts > 1 || (starts === 1 && existing.indexOf(BEGIN) > existing.indexOf(END))) throw new Error('Malformed starter markers in AGENTS.md; repair manually before updating');
@@ -262,7 +267,7 @@ export function runKit(argv) {
     else {
       const plan = new Plan(root, opt);
       if (opt.command === 'global') globalPlan(plan);
-      if (opt.command === 'init') { plan.tree(path.join(KIT, 'project-template')); plan.ignore(); }
+      if (opt.command === 'init') { plan.tree(path.join(KIT, 'project-template'), '', true); plan.ignore(); }
       if (opt.command === 'setup') universalPlan(plan, KIT);
       if (opt.command === 'matt') mattPlan(plan);
       if (opt.command === 'context-tools') {

@@ -21,6 +21,44 @@ function run(root, ...args) {
 function put(root, name, text) { const file = path.join(root, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, text); }
 function read(root, name) { return fs.readFileSync(path.join(root, name), 'utf8'); }
 
+test('Russian setup localizes all adapters without duplicate language discovery', t => {
+  const root = fixture(t);
+  const r = run(root, 'setup', '--agents', 'all', '--language', 'ru', '--preset', 'deep');
+  assert.equal(r.code, 0, r.err);
+  for (const p of ['AGENTS.md', 'CLAUDE.md', '.pi/prompts/efficient-task.md', '.opencode/commands/efficient-task.md', '.agents/skills/agent-kit-setup/SKILL.md', '.claude/skills/agent-kit-setup/SKILL.md', '.agent/references/setup.md']) assert.match(read(root, p), /[а-яё]{3}/i, p);
+  for (const p of ['.opencode/commands/efficient-review.md', '.opencode/commands/efficient-verify.md']) {
+    assert.match(read(root, p), /\$ARGUMENTS/);
+    assert.doesNotMatch(read(root, p), /\$\{@/);
+  }
+  assert.equal(fs.readdirSync(path.join(root, '.pi/prompts')).length, 7);
+  assert.equal(fs.readdirSync(path.join(root, '.agents/skills')).length, 10);
+  assert.equal(JSON.parse(read(root, '.agent/kit.json')).language, 'ru');
+  assert.match(read(root, '.agent/translations/en/portable/skills/agent-kit-setup/SKILL.md'), /Set up/);
+  assert.match(read(root, '.agent/translations/ru/portable/skills/agent-kit-setup/SKILL.md'), /[а-яё]{3}/i);
+  assert.match(read(root, '.agent/GETTING-STARTED.en.md'), /Installed for/);
+  assert.match(read(root, '.agent/GETTING-STARTED.ru.md'), /Установлено/);
+  assert.equal(run(root, 'doctor', '--json').code, 0);
+  assert.equal(run(root, 'setup').code, 0);
+  assert.equal(JSON.parse(read(root, '.agent/kit.json')).language, 'ru');
+});
+
+test('language changes require backed-up update and preserve user-owned context', t => {
+  const root = fixture(t);
+  put(root, 'AGENTS.md', 'Team rules\n'); put(root, 'CONTEXT.md', 'Our domain');
+  assert.equal(run(root, 'setup', '--agents', 'all').code, 0);
+  const before = read(root, '.agent/kit.json');
+  assert.equal(run(root, 'setup', '--language', 'ru').code, 1);
+  assert.equal(read(root, '.agent/kit.json'), before);
+  assert.equal(run(root, 'setup', '--language', 'ru', '--force', '--dry-run').code, 0);
+  assert.equal(read(root, '.agent/kit.json'), before);
+  assert.equal(run(root, 'setup', '--language', 'ru', '--force').code, 0);
+  assert.equal(read(root, 'CONTEXT.md'), 'Our domain');
+  assert.ok(read(root, 'AGENTS.md').startsWith('Team rules\n'));
+  assert.match(read(root, 'AGENTS.md'), /[а-яё]{3}/i);
+  assert.equal(fs.readdirSync(path.join(root, '.pi-starter-backups')).length, 2);
+  assert.equal(run(root, 'setup', '--language', 'de').code, 1);
+});
+
 test('universal dry-run describes all adapters without creating the target', t => {
   const root = fixture(t), target = path.join(root, 'new project');
   const r = run(root, 'setup', target, '--agents', 'all', '--dry-run');

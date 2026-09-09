@@ -1,41 +1,43 @@
-# Сравнение качества и полной стоимости
+# Comparing quality and total cost
 
-Kit не содержит доказанного процента экономии. Offline-тесты проверяют логику, а не реальные ответы/цены LLM. Для честного сравнения нужен одинаковый набор задач и учёт всех попыток, включая неудачные.
+[Русский](EVALUATION.ru.md)
 
-## Три варианта
+The kit has no proven savings percentage. Offline tests check logic, not real LLM answers/prices. Fair comparisons need the same task set and all attempts, including failures.
 
-- `full-read`: исходный сценарий с обычными полными чтениями, без дополнительного guard/worker.
-- `targeted-read`: core v2 — поиск путей/символов, ограниченные диапазоны, компактные логи, без worker.
-- `delegated`: тот же core плюс разрешённый bulk-reader; точный код для изменения всё равно читается напрямую.
+## Three variants
 
-Один запрос на маленький файл часто выгоднее двух вызовов моделей. Перенос текста с основной модели на worker сам по себе не доказывает экономию всей задачи.
+- `full-read`: ordinary full reads without the extra guard/worker.
+- `targeted-read`: core v2 path/symbol search, bounded ranges, compact logs, no worker.
+- `delegated`: the same core plus authorized bulk-reader; exact code for editing is still read directly.
 
-## Протокол живого сравнения
+One small-file request is often cheaper than two model calls. Moving text to a worker does not itself prove whole-task savings.
 
-1. Зафиксируйте набор: поиск поведения в незнакомом коде, узкий баг, multi-file изменение, review регрессии. До запуска запишите критерии, тесты и проверяемые утверждения. Для read-only вопросов тоже нужен gold/reference verdict, а не только наличие цитат.
-2. Стартуйте с одинаковых снимков Git и dirty state. Для изменений — отдельные ветки/worktrees. Случайно перемешивайте порядок вариантов; не «обучайте» следующий запуск ответом предыдущего.
-3. Основная модель, thinking, версия Pi, инструменты и правила приёмки одинаковы. Worker/model задаются явно. Запишите реальные provider/model IDs, версии kit/расширений, состояние кэша, дату/тариф. Cold и warm сравнивайте отдельно; повторяйте задачи, чтобы видеть разброс.
-4. В каждом варианте доведите задачу до проверки или честного отказа. Учитывайте чтения, worker, исправления, повторные попытки, review, summaries, handoff и человеческое вмешательство. Не измеряйте только цену удачной дочерней реплики.
-5. Принимайте результат по одним тестам и независимому review, по возможности скрыв название варианта от проверяющего. Проверенные пути/цитаты bulk-reader не являются verdict качества.
-6. Только после сопоставимого качества сравнивайте стоимость. Отдельно смотрите регрессии, p50/p95 задержки, число tool calls и human minutes. Утверждать «дешевле» по одному примеру недостаточно.
+## Live evaluation protocol
 
-В этой поставке живые платные прогоны **не запускались**. Они требуют вашего выбора моделей/провайдеров и разрешения на отправку исходников. Скрипт ниже читает готовые записи, не запускает модели и не списывает деньги.
+1. Fix tasks: unfamiliar-code behavior discovery, narrow bug, multi-file change, regression review. Record criteria, tests, and assertions beforehand. Read-only questions also need a gold/reference verdict, not merely citations.
+2. Start from identical Git snapshots and dirty state. Use separate branches/worktrees for edits. Randomize variant order; do not teach later runs earlier answers.
+3. Keep principal model, thinking, Pi version, tools, and acceptance rules equal. Specify worker/model explicitly. Record real provider/model IDs, kit/extension versions, cache state, date/rates. Compare cold and warm separately; repeat tasks to observe variation.
+4. Finish each task with verification or an honest failure. Include reads, worker, corrections, retries, review, summaries, handoff, and human intervention, not just one successful child's price.
+5. Accept using the same tests and independent review, concealing variant identity from reviewers where possible. Validated bulk-reader paths/quotes are not quality verdicts.
+6. Compare costs only after quality is comparable. Separately examine regressions, p50/p95 latency, tool calls, and human minutes. One example is insufficient to establish lower cost.
 
-## Записи и сводка
+This distribution **did not run paid live evaluations**. They require your model/provider choice and authorization to transmit source. The script below reads existing records; it makes no model calls or charges.
 
-Скопируйте `optional/context-tools/evaluation.template.json` в локальную папку результатов. В нём все стоимости/решения `null`: это шаблон, не измеренные данные.
+## Records and summary
+
+Copy `optional/context-tools/evaluation.template.json` to a local results directory. All costs/verdicts are null: a template, not measured data.
 
 ```bash
 node scripts/summarize-context-evals.mjs /path/to/evaluation.json
 ```
 
-На Windows:
+Windows:
 
 ```powershell
 node "$Kit\scripts\summarize-context-evals.mjs" "$Project\.agent\tmp\evaluation.json"
 ```
 
-Минимальная запись попытки:
+Minimal attempt record:
 
 ```json
 {
@@ -60,21 +62,21 @@ node "$Kit\scripts\summarize-context-evals.mjs" "$Project\.agent\tmp\evaluation.
 }
 ```
 
-Скрипт проверяет обязательные поля; дополнительные метаданные/пути сохраняйте для воспроизводимости. `runId` уникален. Для каждого `taskId`/варианта номера `attempt` положительные и не повторяются. Последняя попытка определяет итог принятия задачи; **в стоимость входят все её попытки**, в том числе предыдущие отказы. Не удаляйте неудачные/отменённые запуски.
+The script validates required fields; retain extra metadata/paths for reproduction. `runId` is unique. Within taskId/variant, attempt numbers are positive and unique. The last attempt determines acceptance; **all attempts count toward cost**, including earlier rejections. Retain failed/cancelled runs.
 
-`accepted`: `true`/`false` после проверки, `null` если verdict ещё нет. `durationMs`: полная wall-clock задержка попытки, не только worker time. Финальная стоимость может быть известна позже; до этого `null`, не `0`.
+`accepted` is true/false after verification, null before a verdict. `durationMs` is total wall-clock attempt latency, not only worker time. Final costs may arrive later; use null, not 0, until known.
 
-## Два допустимых способа учёта
+## Two valid accounting methods
 
-**1. Полный итог попытки Pi** — `pi-attempt-total`:
+**1. Full Pi attempt total**, `pi-attempt-total`:
 
-- новая изолированная сессия на попытку, либо разница итогов end − start;
-- вложенный worker usage уже входит в Pi total, если получен и записан;
-- нельзя снова добавить к этому total worker receipts;
-- не записывайте один и тот же накопленный footer в несколько строк: это двойной счёт;
-- проверьте receipts на timeout/отсутствующий usage. Неполный footer не становится полным только потому, что показывает число.
+- Use a fresh isolated session per attempt or end − start totals.
+- Nested worker usage is already in Pi total if received and recorded.
+- Never add worker receipts again.
+- Do not repeat one cumulative footer across rows; that double-counts.
+- Check receipts for timeout/missing usage. A numeric footer is not necessarily complete.
 
-**2. Непересекающиеся компоненты** — вместо total:
+**2. Non-overlapping components**, instead of a total:
 
 ```json
 {
@@ -85,14 +87,14 @@ node "$Kit\scripts\summarize-context-evals.mjs" "$Project\.agent\tmp\evaluation.
 }
 ```
 
-`parentUsd` должен исключать worker. `workerUsd` включает все его отправленные вызовы; `otherUsd` — остальные релевантные вызовы/reviews. Если компонент точно отсутствует, разрешён `0`; если неизвестен — `null`. Хотя бы одно неизвестное → total неизвестен. Одновременно total и components валидатор не принимает.
+`parentUsd` excludes worker. `workerUsd` includes every dispatched worker call; `otherUsd` includes other relevant calls/reviews. Known absence can be 0; unknown is null. Any unknown makes total unknown. The validator rejects simultaneous total and components.
 
-`costBasis`: `catalog-estimate`, `billed` или `unknown`. Каталожный USD из Pi — оценка по тарифам, не инвойс. Модуль намеренно не выводит оплату из памяти о ценах моделей. Не смешивайте разные price bases в одном выводе об экономии.
+`costBasis`: catalog-estimate, billed, or unknown. Pi catalog USD is a rate estimate, not an invoice. The module deliberately does not infer payment from remembered model prices. Avoid mixing price bases in savings conclusions.
 
-## Что выдаёт сводка
+## Summary output
 
-По каждому варианту: число попыток/задач, принятые и непроверенные задачи, acceptance rate при полном verdict, известный subtotal, total только при полном учёте, стоимость на принятую задачу, медиана известных длительностей и количество пропусков. Ноль принятых задач → стоимость на принятую задачу `null`, не ноль.
+Per variant: attempts/tasks, accepted/unverified tasks, acceptance rate with complete verdicts, known subtotal, total only with complete accounting, cost per accepted task, median known durations, and missing counts. Zero accepted tasks means cost per accepted task is null, not zero.
 
-Сверяются наборы task IDs всех трёх вариантов. Нет автоматического победителя, произвольного процента экономии или подмены пропусков нулями. Сводка не проверяет правдивость введённых счетов, качество code review, равноценность кэша или рандомизацию: сохраняйте исходные evidence.
+Task ID sets are compared across all three variants. There is no automatic winner, arbitrary savings percentage, or substitution of zero for missing data. Summary validation does not establish invoice truth, review quality, equivalent cache conditions, or randomization; retain source evidence.
 
-Usage-токены используйте как диагностику: fresh input, cache read/write и output у провайдеров могут иметь разные правила. Не суммируйте перекрывающиеся totalTokens/input/cache counters повторно. Отчёт качества важнее одной красивой цифры стоимости.
+Use usage tokens diagnostically: provider definitions for fresh input, cache read/write, and output differ. Avoid adding overlapping totalTokens/input/cache counters twice. Quality evidence matters more than one attractive cost number.

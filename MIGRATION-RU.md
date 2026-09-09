@@ -1,5 +1,7 @@
 # Переход v2 → v2.1
 
+[English](MIGRATION.md)
+
 Распакуйте v2.1 отдельно. Для установки нового опционального модуля не нужно перезаписывать AGENTS, skills, CONTEXT, settings или ваши prompts:
 
 ```bash

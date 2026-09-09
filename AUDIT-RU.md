@@ -1,5 +1,7 @@
 # Аудит v2.1 — 8 сентября 2026
 
+[English](AUDIT.md)
+
 ## Что поставлено
 
 Опциональный context-tools v0.1: предчтение по байтам запрошенного диапазона, UI warn/enforce, одноразовый полный read, tool-less bulk-reader через Pi model registry, явное сессионное согласие на модель/папки, bounded input/output, quote/line/hash validation, отмена/таймаут и worker receipts. Добавлен валидатор сравнительного учёта full-read / targeted-read / delegated без двойного сложения стоимости.

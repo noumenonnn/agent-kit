@@ -1,5 +1,7 @@
 # Agent Kit v2.2: verification
 
+[Русский](universal-v2.2.ru.md)
+
 Date: 2026-09-08. Host: Windows. These results describe the local run, not a claim that CI ran on every platform.
 
 ## Automated checks

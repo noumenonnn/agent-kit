@@ -6,6 +6,8 @@ labels: bug
 assignees: ""
 ---
 
+[Русский](bug_report.ru.md)
+
 ## Expected and actual behavior
 
 ## Reproduction

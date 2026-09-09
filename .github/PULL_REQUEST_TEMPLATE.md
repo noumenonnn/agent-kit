@@ -1,5 +1,7 @@
 ## Problem and resulting behavior
 
+[Русский](PULL_REQUEST_TEMPLATE.ru.md)
+
 Describe the concrete trigger and what changes for the user. Link related issues when relevant.
 
 ## Verification

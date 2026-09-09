@@ -1,5 +1,7 @@
 # Sources and verification boundary
 
+[Русский](SOURCES.ru.md)
+
 Checked on **2026-09-06**. Prefer primary documentation and versioned artifacts, not claims that an ecosystem pattern is universally best.
 
 ## Pi
@@ -39,11 +41,11 @@ Latest release pages retrieved for this audit identify checkout v6.0.2 and setup
 
 ## v2.1 — 2026-09-08
 
-- https://github.com/spotify/portal-ai-plugins — Portal plugins, источник архитектурного вдохновения.
-- https://github.com/spotify/portal-ai-plugins/blob/main/plugins/shunt/README.md — доступный README о pre-read routing и one-shot workers.
-- https://github.com/earendil-works/pi/blob/v0.85.1/packages/coding-agent/docs/extensions.md — версионная граница extension discovery, hooks, tools/commands и вложенного usage.
-- https://pi.dev/docs/latest/extensions — текущие расширения, ModelRegistry streaming, режимы UI и lifecycle.
-- https://pi.dev/docs/latest/sdk — интерфейсы SDK и контекста.
-- https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/model-registry.ts — поведение реестра и провайдерных регистраций.
+- https://github.com/spotify/portal-ai-plugins — Portal plugins, architectural inspiration.
+- https://github.com/spotify/portal-ai-plugins/blob/main/plugins/shunt/README.md — available README on pre-read routing and one-shot workers.
+- https://github.com/earendil-works/pi/blob/v0.85.1/packages/coding-agent/docs/extensions.md — versioned extension discovery, hooks, tools/commands, nested usage.
+- https://pi.dev/docs/latest/extensions — current extensions, ModelRegistry streaming, UI modes, lifecycle.
+- https://pi.dev/docs/latest/sdk — SDK and context interfaces.
+- https://github.com/earendil-works/pi/blob/main/packages/coding-agent/src/core/model-registry.ts — registry and provider registrations.
 
-Spotify: прочитаны root/shunt README. Исходники отдельных hooks/scripts/skills/evals получить не удалось; их код не аудирован, не скопирован, заявленные авторами benchmark-проценты не воспроизведены. Модуль kit написан независимо. Текущая документация Pi может меняться: есть capability check, но нет заявления о воспроизведённой live-интеграции.
+Spotify: root/shunt READMEs were read. Individual hooks/scripts/skills/evals could not be retrieved; their code was neither audited nor copied, and author-reported benchmark percentages were not reproduced. The kit module is independently written. Current Pi documentation can change: a capability check exists, but live integration was not reproduced in this audit.

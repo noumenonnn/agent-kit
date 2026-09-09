@@ -1,5 +1,7 @@
 # Contributing to Agent Kit
 
+[Русский](CONTRIBUTING.ru.md)
+
 ## Local development
 
 Use Node.js 22.19 or newer. The core has no required npm dependencies or build step.
@@ -13,7 +15,7 @@ Run targeted tests while working, then both commands before opening a pull reque
 
 ## Changes we can review
 
-Keep each pull request focused on one problem. Describe the trigger, resulting behavior, and verification. Link an issue when relevant. Include terminal examples for CLI changes and screenshots for visual changes. Update the English overview, affected Russian guides, and changelog when behavior changes.
+Keep each pull request focused on one problem. Describe the trigger, resulting behavior, and verification. Link an issue when relevant. Include terminal examples for CLI changes and screenshots for visual changes. Update both language versions of every affected document and the changelog when behavior changes.
 
 Use concise imperative commit subjects, for example `Preserve project rules during adapter updates`.
 
@@ -27,6 +29,10 @@ Use concise imperative commit subjects, for example `Preserve project rules duri
 - Avoid dependencies for work the supported Node runtime handles directly.
 
 Follow the layout and style in [AGENTS.md](AGENTS.md). New integrations need primary-source documentation for resource contracts and tests for generated artifacts.
+
+## Bilingual documentation
+
+Every Markdown document has an English/Russian pair in `docs/languages.json`. Runtime translations live under `locales/ru/` so clients discover only the selected language. Preserve skill names, flags, metadata keys, and code examples. Update both texts together, review meaning and links, then run `npm run docs:write` and `npm run docs:check`. The hashes detect unreviewed file changes, not translation quality. Add new pairs to the catalog; the check rejects uncovered Markdown files. External skills copied from a reviewed commit keep their original language and license; the kit does not rewrite third-party content.
 
 ## Release preparation
 

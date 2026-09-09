@@ -6,6 +6,8 @@ labels: enhancement
 assignees: ""
 ---
 
+[Русский](feature_request.ru.md)
+
 ## User problem
 
 What task is difficult today, and which agents are affected?

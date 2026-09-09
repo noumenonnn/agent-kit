@@ -23,6 +23,7 @@ jobs:
           node-version: ${{ matrix.node }}
           package-manager-cache: false
       - run: node scripts/check-kit.mjs
+      - run: node scripts/check-docs.mjs
       - run: node --test
       - run: node scripts/integrity.mjs
       - run: npm pack --dry-run --ignore-scripts

@@ -1,5 +1,7 @@
 # Repository Guidelines
 
+[Русский](AGENTS.ru.md)
+
 ## Project Structure & Module Organization
 
 - `scripts/agent-kit.mjs` is the universal CLI; `scripts/lib/` plans adapters. `kit.mjs` retains Pi installation and restore.
@@ -7,7 +9,7 @@
 - `project-template/` supplies `.agent/` helpers, `.pi/` prompts, and ADRs. Its `AGENTS.md` is a distributed template; this guide governs kit contributions.
 - `global/` contains shared skills, settings, and the global instruction fragment; `profiles/` holds optional settings profiles.
 - `optional/context-tools/` contains the opt-in extension and evaluation logic.
-- `tests/` contains tests; `verification/` stores evidence. Root Markdown documents setup and migration.
+- `tests/` contains tests; `verification/` stores evidence. Root Markdown documents setup and migration; `docs/languages.json` pairs all English/Russian documents.
 
 ## Build, Test, and Development Commands
 
@@ -31,6 +33,10 @@ Use `node:test` with `node:assert/strict`; name files `*.test.mjs` and describe 
 ## Commit & Pull Request Guidelines
 
 Use concise imperative subjects, such as `Fix restore conflict detection`. PRs explain the problem, changed behavior, and verification; link issues and update affected documentation. Follow `CONTRIBUTING.md` for release preparation and integrity checks.
+
+## Documentation Languages
+
+Update both translations together; keep runtime Russian resources in `locales/ru/`, outside native discovery roots. Preserve machine identifiers. Review the pair, then run `npm run docs:write` and `npm run docs:check`. For user-requested setup or updates, follow `SETUP.md` (Russian: `SETUP.ru.md`) and verify the resulting project.
 
 ## Configuration Invariants
 

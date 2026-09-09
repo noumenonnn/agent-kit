@@ -2,7 +2,7 @@
 
 **Focused context. Predictable setup. Pi, Codex, Claude Code, and OpenCode.**
 
-[Русский](README.ru.md) · [Full guide](UNIVERSAL-RU.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
+[Русский](README.ru.md) · [Full guide](UNIVERSAL.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
 [![Checks](https://github.com/noumenonnn/agent-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/noumenonnn/agent-kit/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -23,8 +23,8 @@ npm run wizard
 For repeatable setup without prompts:
 
 ```sh
-npm run setup -- --target ../my-project --agents all --dry-run
-npm run setup -- --target ../my-project --agents all
+npm run setup -- --target ../my-project --agents all --language en --dry-run
+npm run setup -- --target ../my-project --agents all --language en
 npm run doctor -- --target ../my-project
 ```
 
@@ -41,11 +41,19 @@ Open your project in the selected agent and start a task:
 | Claude Code | `/efficient-task Add X and verify Y` | Native project skills + CLAUDE.md |
 | OpenCode | `/efficient-task Add X and verify Y` | Shared skills + 7 native commands |
 
-The installer writes a project-specific `.agent/GETTING-STARTED.md` with next steps.
+The installer writes a project-specific `.agent/GETTING-STARTED.md` with next steps. Use `--language en` or `--language ru`; updates retain the selected language. Both translations are kept in `.agent/translations/`, outside automatic resource discovery. Changing language requires `--force`; preview with `--force --dry-run` first. User-authored project documents stay intact.
+
+## Ask your agent to set it up
+
+Copy this request into your coding agent:
+
+> Set up Agent Kit from https://github.com/noumenonnn/agent-kit for this project. Follow SETUP.md, use English instructions, preserve existing settings and changes, and configure the agent I am using. Preview the changes, apply the setup, run doctor and the relevant checks, and explain how to start.
+
+[Agent setup procedure](SETUP.md) covers new and existing projects, updates, verification, and completion criteria. Once installed, the `agent-kit-setup` skill provides the same entry point for future changes.
 
 ## What you get
 
-- **Three focused skills:** implement a task, assemble exact context, and prepare a handoff. `--preset deep` adds six specialist skills.
+- **Four focused skills:** set up the kit, implement a task, assemble exact context, and prepare a handoff. `--preset deep` adds six specialist skills.
 - **Context on demand:** a small stable instruction block, scoped references, and explicit file/line selection.
 - **Verifiable excerpts:** UTF-8 byte budgets, full-source SHA-256 hashes, and freshness checks. Oversized bundles fail rather than silently clip evidence.
 - **Compact check output:** bounded terminal excerpts with local logs and real process exit codes.
@@ -69,7 +77,7 @@ Repeat `--file` to include additional sources. Omit `--range` for a whole file. 
 npm run setup -- --target ../my-project --agents pi --with-context-tools
 ```
 
-In a trusted interactive Pi session, run `/reload`, then `/context-tools status`. The guard starts in warning mode and the worker starts disabled. Delegation requires the user's interactive model and path selection. [Configuration and behavior](CONTEXT-TOOLS-RU.md).
+In a trusted interactive Pi session, run `/reload`, then `/context-tools status`. The guard starts in warning mode and the worker starts disabled. Delegation requires the user's interactive model and path selection. [Configuration and behavior](CONTEXT-TOOLS.md).
 
 Native guard/worker hooks are currently implemented **only for Pi**. Other adapters provide skills, instructions, and portable helpers; they do not intercept tool calls.
 
@@ -85,26 +93,30 @@ Each operation prints its backup manifest. To undo it:
 node scripts/agent-kit.mjs restore --target ../my-project --manifest ../my-project/.pi-starter-backups/RUN/manifest.json --dry-run
 ```
 
-Remove `--dry-run` to restore. Undo operations in reverse order; later user edits block conflicting restores. [Full lifecycle guide](UNIVERSAL-RU.md).
+Remove `--dry-run` to restore. Undo operations in reverse order; later user edits block conflicting restores. [Full lifecycle guide](UNIVERSAL.md).
 
 ## Validation and limits
 
-The recorded Windows run has **99 passing tests, 3 platform/policy skips, and no failures**. The real Pi 0.85.1 resource loader successfully loaded project resources, the optional extension, and the native package. Full interactive client/provider sessions were not exercised. CI is configured for Linux, macOS, and Windows on Node 22.19 and 24.
+Current v2.3: **101 tests passed, 3 Windows skips, no failures**; English/Russian Pi resources passed the native loader check. [v2.3 evidence and limits](verification/universal-v2.3.md).
+
+The historical v2.2 Windows baseline has **99 passing tests, 3 platform/policy skips, and no failures**. The real Pi 0.85.1 resource loader successfully loaded project resources, the optional extension, and the native package. Full interactive client/provider sessions were not exercised. CI is configured for Linux, macOS, and Windows on Node 22.19 and 24.
 
 ```sh
 npm run check
 npm test
+npm run docs:check
 ```
 
-[Verification report](verification/universal-v2.2.md) · [Evaluation protocol](EVALUATION.md) · [Portal and related-project research](RESEARCH-UNIVERSAL-RU.md).
+[Verification report](verification/universal-v2.2.md) · [Evaluation protocol](EVALUATION.md) · [Portal and related-project research](RESEARCH-UNIVERSAL.md).
 
 No percentage savings are promised. Compare quality, total cost, and time on the same accepted tasks. OpenCode can discover both shared and Claude skill copies; `doctor` flags divergent copies.
 
 ## Documentation
 
-- [Universal setup and compatibility](UNIVERSAL-RU.md)
-- [Russian overview and legacy Pi commands](README.ru.md)
-- [Migration](MIGRATION-RU.md)
+- [Universal setup and compatibility](UNIVERSAL.md)
+- [All documentation in English and Russian](docs/README.md)
+- [Legacy Pi commands](PI-LEGACY.md)
+- [Migration](MIGRATION.md)
 - [Security reporting](SECURITY.md)
 - [Sources and attribution](SOURCES.md)
 

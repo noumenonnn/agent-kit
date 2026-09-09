@@ -37,7 +37,7 @@ for (const file of files) {
     check(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(name || '') && name.length <= 64, `${rel}: invalid name`);
     check(Boolean(description) && description.length <= 1024, `${rel}: missing/long description`);
   }
-  if (rel.replaceAll(path.sep, '/').startsWith('project-template/.pi/prompts/') && file.endsWith('.md')) {
+  if (/^(locales\/ru\/)?project-template\/\.pi\/prompts\//.test(rel.replaceAll(path.sep, '/')) && file.endsWith('.md')) {
     counts.prompts++;
     const fm = /^---\n([\s\S]*?)\n---/.exec(bytes.toString())?.[1] || '';
     check(/^description: .+$/m.test(fm), `${rel}: no description`);
@@ -69,5 +69,16 @@ for (const name of fs.readdirSync(path.join(root, 'portable/skills'))) {
   check(Buffer.byteLength(body) <= 4096, `${name}: disclose reference detail; skill exceeds 4096 bytes`);
 }
 check(leanMetadataBytes <= 1024, `Lean skill metadata exceeds 1024 bytes: ${leanMetadataBytes}`);
-console.log(JSON.stringify({ ...counts, policyBytes, portablePolicyBytes, leanMetadataBytes, failures }, null, 2));
+const ruPolicyBytes = ['global/AGENTS.fragment.md', 'project-template/AGENTS.md'].reduce((n, p) => n + fs.statSync(path.join(root, 'locales/ru', p)).size, 0);
+const ruPortablePolicyBytes = fs.statSync(path.join(root, 'locales/ru/portable/instructions.md')).size;
+let ruLeanMetadataBytes = 0;
+for (const name of fs.readdirSync(path.join(root, 'portable/skills'))) {
+  const body = fs.readFileSync(path.join(root, 'locales/ru/portable/skills', name, 'SKILL.md'), 'utf8');
+  ruLeanMetadataBytes += Buffer.byteLength(/^---\n([\s\S]*?)\n---/.exec(body)?.[1] || '');
+  check(Buffer.byteLength(body) <= 4096, `ru/${name}: skill exceeds 4096 bytes`);
+}
+check(ruPolicyBytes <= 4096, `Russian Pi policy exceeds 4096 UTF-8 bytes: ${ruPolicyBytes}`);
+check(ruPortablePolicyBytes <= 1024, `Russian portable policy exceeds 1024 bytes: ${ruPortablePolicyBytes}`);
+check(ruLeanMetadataBytes <= 1024, `Russian lean metadata exceeds 1024 bytes: ${ruLeanMetadataBytes}`);
+console.log(JSON.stringify({ ...counts, policyBytes, portablePolicyBytes, leanMetadataBytes, ruPolicyBytes, ruPortablePolicyBytes, ruLeanMetadataBytes, failures }, null, 2));
 process.exitCode = failures.length ? 1 : 0;
